@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            margin: 100px auto 0;
+            width: 520px;
+            height: 280px;
+            border: 1px solid #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        #list {
+            list-style: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        li {
+            float: left;
+        }
+        img {
+            display: block;
+        }
+
+        #prev, #next {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background: #000000;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 60px;
+            text-align: center;
+            top: 110px;
+            cursor: pointer;
+        }
+        #prev {
+            left: 0;
+        }
+        #next {
+            right: 0;
+        }
+        p{
+            position: absolute;
+            width:100%;
+            bottom: 0;
+            text-align: center;
+        }
+        p strong{
+            display: inline-block;
+            width:20px;
+            height:20px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .active{background: #ccc;}
+    </style>
+    <script src="../scripts/tween.js"></script>
+    <script src="../scripts/mTween3.js"></script>
+    <script>
+        window.onload = function() {
+			//获取元素
+            var list = document.getElementById('list');
+            var lis = list.getElementsByTagName('li');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var aDot = document.getElementsByTagName('strong');
+            //li的个数
+            var len = lis.length;
+            //每一个li的宽度
+            var width = parseInt( getComputedStyle(lis[0]).width );
+            //总的ul的宽度
+            list.style.width = len * width + 'px';
+            //初始化第0张
+            var n = 0;
+
+            //下一张
+            next.onmousedown = function() {
+                n++;
+                if (n == len) {
+                    n = 0;
+                }
+                
+                var w = -n * width;
+                console.log(w);
+                //调用clearClass函数
+                clearClass();
+                //调用mTween函数
+                mTween(list,{
+                    'left': w
+                }, 500, 'linear');
+            }
+            
+             //上一张
+            prev.onmousedown = function() {
+                n--;
+                if (n == -1) {
+                    n = len-1;
+                }
+                
+                var w = -n * width;
+                
+                //调用clearClass函数
+                clearClass();				
+				//调用mTween函数
+                mTween(list,{
+                    'left': w
+                }, 500, 'linear');
+            }
+            
+            //点击strong小圆点，清除所有元素上的class，给当前元素加class，把当前元素的索引赋给n
+            for(var i=0,len2=aDot.length;i<len2;i++){
+            	aDot[i].index = i;
+            	aDot[i].onmousedown = function (){
+            		var w = -this.index * width;
+            		
+            		//点击当前strong把它上面的index赋给n
+            		n = this.index;
+            		//调用clearClass函数
+            		clearClass();
+            		//调用mTween函数
+            		mTween(list,{
+                        'left': w
+                    }, 500, 'linear');
+            	}
+            }
+            
+            //清空strong所有的class，给当前strong加上class
+            function clearClass(){
+            	for(var i=0,len1=aDot.length;i<len1;i++){
+                	aDot[i].className = '';
+                }
+                aDot[n].className = 'active';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul id="list">
+            <li><img src="../images/di1zhang.jpg" ></li>
+            <li><img src="../images/di2zhang.jpg" ></li>
+            <li><img src="../images/di3zhang.jpg" ></li>
+            <li><img src="../images/di4zhang.jpg" ></li>
+            <li><img src="../images/di5zhang.jpg" ></li>
+        </ul>
+        <span id="prev"> < </span>
+        <span id="next"> > </span>
+        <p>
+        	<strong class="active"></strong>
+        	<strong></strong>
+        	<strong></strong>
+        	<strong></strong>
+        	<strong></strong>
+        </p>
+    </div>
+</body>
+</html>

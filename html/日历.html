@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日历</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#calendar{
+				margin:10px;
+				padding: 10px;
+				width: 320px;
+				font-size:20px;
+				background: #ccc;
+				color: #fff;
+			}
+			#select{
+				margin:10px 0;
+				position: relative;
+			}
+			#btn{
+				position: absolute;
+				top:0;
+				right:10px;
+				
+			}
+			#btn span{
+				cursor: pointer;
+			}
+			#table td{
+				width: 50px;
+				text-align: center;
+			}
+			.today{
+				background:#ff0;
+				color:#333;
+			}
+		
+		</style>
+	</head>
+		
+	<body>
+		<div id="calendar">
+			<div id="time"></div>
+			<div id="select">
+				<select name="" id="year">
+				</select>
+				<select name="" id="month">
+				</select>
+				<div id="btn">
+					<span><</span>
+					<span>></span>
+				</div>
+			</div>
+			<div>
+				<table id="table">
+					<thead>
+						<tr>
+							<th>日</th>
+							<th>一</th>
+							<th>二</th>
+							<th>三</th>
+							<th>四</th>
+							<th>五</th>
+							<th>六</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+<!--<script src="../scripts/tween.js"></script>
+		<script src="../scripts/mTween3.js"></script>-->
+		<script>
+			var doc = document,
+				oTime = doc.getElementById('time'),
+				oYear = doc.getElementById('year'),
+				oMonth = doc.getElementById('month'),
+				oTable = doc.getElementById('table'),
+				oBtn = doc.getElementById('btn'),
+				aSpan = oBtn.getElementsByTagName('span'),
+				date = new Date(),
+				nowYear = date.getFullYear(),
+				nowMonth = date.getMonth(),
+				nowDate = date.getDate(),
+				nowWeek = '日一二三四五六'.split('')[date.getDay()];
+
+
+			//显示当前时间
+			showTime();
+
+			//用定时器调用显示时间
+			setInterval(function () {
+				showTime();
+			},500);
+
+			//显示年月
+			showYearMonth();
+
+			//选择年份
+			oYear.onchange = function () {
+				nowYear = Number(this.value);
+				monthDays();
+				showOption();
+
+			}
+			//选择月份
+			oMonth.onchange = function () {
+				nowMonth = Number(this.value);
+				monthDays();
+				showOption();
+			}
+
+			//上一个月份
+			aSpan[0].onmousedown = function () {
+				nowMonth--;
+				showOption();
+				monthDays();
+			}
+
+			//下一个月份
+			aSpan[1].onmousedown = function () {
+				nowMonth++;
+				showOption();
+				monthDays();
+			}
+
+			//显示时间
+			function  showTime(){
+				var date = new Date();
+				var timeStr = [
+					addZero(date.getHours()),
+					addZero(date.getMinutes()),
+					addZero(date.getSeconds())
+				].join(':');
+
+				oTime.innerHTML = addZero(date.getFullYear())+'年'+
+						addZero(date.getMonth() + 1)+'月'+
+						addZero(nowDate)+'日 '+timeStr+' 星期'+nowWeek;
+			}
+
+			//显示年月
+			function  showYearMonth(){
+				for(var i=2020;i>=1970;i--){
+					if(i != nowYear){
+						oYear.innerHTML += '<option value="'+i+'">'+i+'</option>';
+					}else{
+						oYear.innerHTML += '<option selected value="'+i+'">'+i+'</option>';
+					}
+				}
+				for(var i=1;i<=12;i++){
+					if(i != nowMonth+1){
+						oMonth.innerHTML += '<option value="'+(i-1)+'">'+i+'</option>';
+					}else{
+						oMonth.innerHTML += '<option selected value="'+(i-1)+'">'+i+'</option>';
+					}
+				}
+			}
+
+			monthDays();
+			//显示每月天数
+			function  monthDays(){
+				var	choiceMonth = new Date(nowYear,nowMonth+1,1,0,0,0),
+					//获取选择月时间
+					getTimes = new Date(choiceMonth.getTime()-1),
+					//获取选择月有多少天
+					getDates = getTimes.getDate(),
+					//获取选择的月份的1号对应的星期几
+					getDays = getTimes.setDate(1),
+					//将数字星期转化为对应的汉字星期
+					week = getTimes.getDay(),
+					//列
+					cells = 7,
+					//行
+					rows = Math.ceil((week+getDates)/cells);
+
+				//清除body里面所有内容
+				oTable.tBodies[0].innerHTML = '';
+
+				for(var i=0;i<rows;i++){
+					var oTr = doc.createElement('tr');
+					for(var j=1;j<=cells;j++){
+						var oTd = doc.createElement('td');
+						var num = i*cells+j-week;
+
+						if(0 < num && num <= getDates){
+							oTd.innerHTML = num;
+						}else{
+							oTd.innerHTML = '';
+						}
+
+						if ( date.getFullYear() == nowYear && date.getMonth() == nowMonth && date.getDate() == num ) {
+							oTd.className = 'today';
+						}
+
+
+						oTr.appendChild(oTd);
+					}
+					oTable.tBodies[0].appendChild(oTr);
+				}
+			}
+
+			function showOption(){
+				var date = new Date(nowYear, nowMonth);
+				var sy = date.getFullYear();
+				var sm = date.getMonth();
+
+				var options1 = oYear.getElementsByTagName('option');
+				for (var i=0; i<options1.length; i++) {
+					if ( options1[i].value == sy ) {
+						options1[i].selected = true;
+					}
+				}
+
+				var options2 = oMonth.getElementsByTagName('option');
+				for (var i=0; i<options2.length; i++) {
+					if ( options2[i].value == sm ) {
+						options2[i].selected = true;
+					}
+				}
+			}
+
+			//如果传入参数小于0，那么在前面加0
+			function  addZero(n){
+				if(n<10){
+					return '0'+n;
+				}else{
+					return ''+n;
+				}
+			}
+
+
+		</script>
+	</body>
+</html>

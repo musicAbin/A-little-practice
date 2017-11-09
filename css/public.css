@@ -1,0 +1,16 @@
+/* css reset */
+
+body,h1,h2,h3,h4,h5,h6,p,dl,dd,form,blockquote,pre{margin:0;}
+ol,ul,input,textarea,select,fieldset{margin:0;padding:0;}
+th,td{padding:0;}
+textarea{overflow:auto;resize:none;outline:none;}
+table{border-collapse:collapse;}
+li{list-style:none;}
+a{text-decoration:none;color:#000;}
+img{border:none;vertical-align:top;}
+fieldset{border:none;}
+input{outline: none;}
+input[type="button"]{cursor: pointer;}
+
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title>碰撞检测</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+        <style>
+            #box1{
+                position: absolute;
+                left: 300px;
+                top: 200px;
+                width: 200px;
+                height: 200px;
+                background: #f00;
+            }
+            #box2{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: #00f;
+            }
+
+
+        </style>
+    </head>
+    <body>
+
+        <div id="box1"></div>
+        <div id="box2"></div>
+
+    	<script src="../scripts/tween.js"></script>
+    	<script src="../scripts/mTween3.js"></script>
+    	
+    	<script>
+
+            /*需求：
+            *   如果box2碰到box1，那么box1变色，否则，不变色
+            *   九宫格
+            *       通过检测box2是否与box1重合来判断是否发生碰撞
+            * */
+
+            var doc = document,
+                oBox1 = doc.getElementById('box1'),
+                oBox2 = doc.getElementById('box2');
+
+            oBox2.onmousedown = function (e) {
+                var e = e || event;
+                var box2L = oBox2.offsetLeft;
+                var box2T = oBox2.offsetTop;
+                var disX = e.clientX-box2L;
+                var disY = e.clientY-box2T;
+
+                document.onmousemove = function (e) {
+                    var e = e || event;
+                    var X = e.clientX;
+                    var Y = e.clientY;
+                    var box1L = oBox1.offsetLeft;
+                    var box1T = oBox1.offsetTop;
+                    var box1W = oBox1.offsetWidth;
+                    var box2W = oBox2.offsetWidth;
+                    //如果box2和box1没有重叠，那么上面也不做
+                    if(X - disX + box2W  < box1L || X - disX > box1L + box1W  || Y - disY + box2W  < box1T || Y - disY > box1T + box1W){
+                    //否则，就把box1变成黄色
+                    }else{
+                        oBox1.style.cssText = 'background:#ff0';
+                    }
+
+                    oBox2.style.left = X - disX + 'px';
+                    oBox2.style.top = Y - disY + 'px';
+
+                };
+
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                };
+
+                return false;
+            }
+
+    	</script>
+    </body>
+</html>

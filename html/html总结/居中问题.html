@@ -1,0 +1,66 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>居中问题</title>
+    <style>
+    	h1{
+    		text-align: center;
+    	}
+    	pre{
+    		margin:0 auto;
+    		width: 1000px;
+    		font-size: 20px;
+    		white-space: pre-wrap;
+    	}
+    	
+    	
+    </style>
+</head>
+<body style="height: 1000px;">
+	<h1>居中问题</h1>
+	<pre>
+		未知宽高的img居中问题
+			方法一：用table实现
+				 所有主浏览器均支持；如果使用table来实现垂直居中，则你只需要如上即可，不论你的td设置为多高，里面的内容均会垂直居中，因为单元格默认就是 vertical-align:middle的。
+			方法二：display:table-cell实现
+				既然table能实现，自然也就会想到将 display 设置为table系value来实现。当然，该方案是有局限性的，因为IE8以下的浏览器不支持 display 的table系value，所以你只能在IE8及以上浏览器以及非IE浏览器下才能看到效果
+			方法三：inline-block实现
+				在img后面添加一个span标签（防止代码换行被解析），内容为空，设置display:inline-block;height:100%;设置img和span标签为vertical-align: middle;（推荐使用）
+			方法四：注意代码结构，img标签后必须有空格或者换行（IE7以上支持）
+				#box{line-height: 500px;font-size:0;}
+				#box img{vertical-align: middle;}
+				&lt;div id="box"&gt;&lt;img src="../images/3.jpg" alt="" /&gt; &lt;/div&gt;
+			方法五：使用相对定位和绝对定位(IE6/7下起作用，IE8以上top不起作用，可以和display:table-cell结合使用)
+				在IE6下使用绝对定位和相对定位，给img外层套一个span标签，让span标签绝对定位，left:50%;top:50%;让img相对定位，left:-50%;top:-50%;由于相对定位占据原来的空间，所以在div身上加上overflow:hidden;（有疑问）
+			方法六：margin:auto实现绝对定位元素的居中（IE8以上）
+				.element {
+				    width: 600px; height: 400px;
+				    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+				    margin: auto;    /* 有了这个就自动居中了 */
+				}
+
+			让一个块元素水平居中可以使用：margin:0 auto;
+			让一个行内元素水平居中可以使用：text-align:center;
+			让一行文字居中可以使用height和line-height相等
+			垂直居中可以设置：display:table-cell;
+			
+			html竖列显示文字
+				1、设置宽度和字体大小相同
+				2、writing-mode(火狐不支持，加-webkit厚安卓4.0以上)
+				3、使用&lt;br /&gt;标签
+	</pre>
+	
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+
+	
+	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			input{width:80px;height:30px;line-height:30px;font-size:20px;border:none;}
+			div{width: 300px;height: 200px;border:1px solid #f00;display: none;}
+			.bg{background: #ff0;}
+			.dis-b{display: block;margin-top:10px;}
+		</style>
+	</head>
+		
+	<body>
+		<input type="button" value="选项一" />	
+		<input class="bg" type="button" value="选项二" />	
+		<input type="button" value="选项三" />	
+		<div>内容一</div>
+		<div class="dis-b">内容二</div>
+		<div>内容三</div>
+		<script>
+		
+		/*需求：选择任意一个选项，这个选项的样式发生变化，与它相对应的选项内容显示
+		 * 	2、当前选项的背景变成黄色，上一个选项的黄色背景被去掉
+		 * 	3、与当选选项相对应的内容显示，上一个选项内容隐藏
+		 */
+		
+		//获取元素
+		var oBtn = document.querySelectorAll('input');
+		var oDiv = document.querySelectorAll('div');
+		var num = 1;	//定义一个变量，用来存储上一个选项卡背景的下标
+		
+		//给所有按钮添加点击处理事件
+		for(var i=0;i<oBtn.length;i++){
+			//给每个按钮添加一个自定义索引
+			oBtn[i].index = i;
+			//给所有按钮添加点击处理事件
+			oBtn[i].onmousedown = function (){
+				//清除上一个按钮的class
+				oBtn[num].className = '';
+				//清除上一个div的class
+				oDiv[num].className = '';
+
+				//给当前按钮添加class
+				this.className = 'bg';
+				//给当前div添加class
+				oDiv[this.index].className = 'dis-b';
+				//把当前按钮的自定义索引赋给num
+				num = this.index;
+			};
+		}
+		
+		
+			
+		</script>
+	</body>
+</html>

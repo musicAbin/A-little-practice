@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>两列布局，左侧固定宽度，右侧自适应</title>
+    <style>
+	    body{
+	    	margin:0;
+	    }
+    	/*方法一*/
+		/*.left{
+			float: left;
+			width: 30%;
+			height: 500px;
+			background: #f00;
+		}
+    	.right{
+    		float: left;
+    		width: 70%;
+    		height: 500px;
+    		background: #00f;
+    	}*/
+    	
+    	/*兼容所有浏览器*/
+    	.left{
+    		position: absolute;
+    		left:0;
+    		top:0;
+    		width: 200px;
+    		height: 500px;
+    		background: #f00;
+    	}
+    	.right{
+    		margin-left:200px;
+    		height: 500px;
+    		background: #00f;
+    	}
+    	
+    	/*兼容IE7以上*/
+    	/*.left{
+    		float:left;
+    		width: 200px;
+    		height: 500px;
+    		background: #f00;
+    	}
+    	.right{
+    		margin-left:200px;
+    		height: 500px;
+    		background: #00f;
+    	}*/
+    </style>
+</head>
+<body>
+	<div class="left">left</div>
+	<div class="right">right</div>
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+	
+
+    
+
+
+
+
+
+</script>
+</body>
+</html>

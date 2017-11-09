@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>三列布局，左右侧固定宽度，中间自适应</title>
+    <style>
+    	/*方法一:*/
+    	.left{
+    		float: left;
+    		width: 200px;
+    		height: 500px;
+    		margin-top: -500px;
+    		background: #f00;
+    	}
+    	.right{
+    		float: right;
+    		width:300px;
+    		height: 500px;
+    		margin-top: -500px;
+    		background: #00f;
+    	}
+    	
+    	.middle{
+    		height: 500px;
+    		margin:0 300px 0 200px;
+    		background: #0f0;
+    	}
+    	
+    	/*方法二:*/
+    	/*.middle{
+    		margin: 0 200px;
+    		height: 500px;
+    		background: #0f0;
+    	}
+    	.left,.right{
+    		position: absolute;
+    		top:0;
+    		width: 200px;
+    		height: 500px;
+    		background: #f00;
+    	}
+    	.left{
+    		left:0;
+    	}
+    	.right{
+    		right:0;
+    	}*/
+    	
+    </style>
+</head>
+<body>
+	<div class="middle"></div>
+	<div class="left"></div>
+	<div class="right"></div>
+
+
+</body>
+</html>

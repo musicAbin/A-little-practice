@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            margin: 100px auto 0;
+            width: 520px;
+            height: 280px;
+            border: 1px solid #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        #list {
+            list-style: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        li {
+            float: left;
+            width:520px;
+        }
+        img {
+            display: block;
+        }
+
+        #prev, #next {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #000000;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 50px;
+            text-align: center;
+            top: 50%;
+            margin-top: -25px;
+            cursor: pointer;
+        }
+        #prev{left:10px;}
+        #next{right:10px;}
+        #text{position: absolute;bottom:0;width:100%;height:50px;text-align: center;background: #333;opacity: 0.8; color:#fff;padding:10px;}
+    </style>
+    <script src="../scripts/tween.js"></script>
+    <script src="../scripts/mTween3.js"></script>
+    <script>
+        window.onload = function() {
+			//获取元素
+            var list = document.getElementById('list');
+            var oNext = document.getElementById('next');
+            var oPrev = document.getElementById('prev');
+            var oText = document.getElementById('text');
+            var oBox = document.getElementById('box');
+            var oH3 = document.getElementsByTagName('h3')[0];
+            var oP = document.getElementsByTagName('p')[0];
+            var lis = list.getElementsByTagName('li');
+            
+            var len = lis.length;
+            //每一个li的宽度
+            var width = parseInt(getStyle(lis[0],'width'));
+            //初始化第0张
+            var n = 0;
+            var timer = null;
+			var text = [
+				{
+					h3:'标题一',	
+					p:'段落一'	
+				},
+				{
+					h3:'标题二',	
+					p:'段落二'	
+				},
+				{
+					h3:'标题三',	
+					p:'段落三'	
+				},
+				{
+					h3:'标题四',	
+					p:'段落四'	
+				},
+				{
+					h3:'标题五',	
+					p:'段落五'	
+				}
+			];
+			
+            //总的ul的宽度
+			list.style.width = len * width + 'px';
+			
+			//3s后执行play函数
+            timer = setInterval(nextPic,3000);
+            
+            //点击上一个按钮，图片切换至上一张
+            oPrev.onmousedown = function (){
+            	n--;
+                if (n == -1) {
+                    n = len-1;
+                }
+                play();
+            };
+            
+            //点击下一张按钮，图片切换到下一张
+            oNext.onmousedown = nextPic;
+            
+            //封装下一张图片函数
+            function nextPic(){
+            	n++;
+                if (n == len) {
+                    n = 0;
+                }
+                play();
+            };
+            
+            //图片和文字自动播放
+            function play(){
+            	var w = -n * width;
+
+                mTween(oText, {
+                    'bottom':-70
+                }, 500, 'linear');
+
+                setTimeout(function(){
+                	mTween(list, {
+                        'left':w
+                    }, 500, 'linear');
+
+                	setTimeout(function(){
+	                	 mTween(oText, {
+                             'bottom':0
+                         }, 500, 'linear');
+	                	 
+	                	 oH3.innerHTML = text[n].h3;
+	                	 oP.innerHTML = text[n].p;
+	                },500);
+                },1000);
+            }
+            
+            //鼠标移上box，清除定时器
+            oBox.onmouseover = function (){
+            	clearInterval(timer);
+            };
+            
+            //鼠标移出box，定时器重新开启
+            oBox.onmouseout = function (){
+            	timer = setInterval(nextPic,3000);
+            };
+        }
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul id="list">
+            <li><img src="../images/di1zhang.jpg" ></li>
+            <li><img src="../images/di2zhang.jpg" ></li>
+            <li><img src="../images/di3zhang.jpg" ></li>
+            <li><img src="../images/di4zhang.jpg" ></li>
+            <li><img src="../images/di5zhang.jpg" ></li>
+        </ul>
+        <span id="prev"> < </span>
+        <span id="next"> > </span>
+        <div id="text">
+        	<h3>文字一</h3>
+        	<p>段落一</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>盒模型</title>
+    <style>
+    	#box1{
+    		width: 100px;
+    		height: 100px;
+    		background: #f00;
+    		border: 1px solid #000;
+    		padding: 20px;
+    		margin: 10px;
+    		/*box-sizing: border-box;*/
+    	}
+    	kbd{
+    		font-size: 20px;
+    	}
+    	
+    	
+    </style>
+</head>
+<body>
+	<kbd>盒模型有两种，一种是IE盒模型，一种是标准盒模型<br />
+	IE盒模型:padding和border在width内渲染<br />
+	标准盒模型:padding和border在width外渲染<br />
+	IE盒模型盒子大小:width+左右margin<br />
+	标准盒模型盒子大小:width+左右padding+左右border+左右margin</kdb><br /><br />
+	
+	<kbd>浏览器渲染模式分为混杂模式和标准模式，标准模式又分为：近似标准模式、标准模式、超标准模式。不同浏览器厂商的标准模式也是有细微差别的。混杂模式开启的是IE5.5以下浏览器的渲染模式</kbd><br />
+	<kbd>在HTML4.01中&lt;!doctype&gt;声明指向一个DTD，由于HTML4.01基于SGML，所以DTD指定了标记规则以保证浏览器正确渲染内容
+HTML5不基于SGML，所以不用指定DTD</kbd>
+	<div id="box1"></div>
+	<div id="box2"></div>
+	
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+	var oBox1 = document.getElementById('box1');
+	
+
+</script>
+</body>
+</html>

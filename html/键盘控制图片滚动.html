@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #photo{
+            position: relative;
+            width:520px;
+            height:280px;
+            margin:90px auto;
+            overflow: hidden;
+        }
+        #photo ul{
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        #photo li{
+            width: 520px;
+            height: 280px;
+        }
+        #photo img{
+            width: 520px;
+            height: 280px;
+        }
+    </style>
+</head>
+<body>
+    <div id="photo">
+        <ul>
+            <li><img src="../images/di1zhang.jpg" alt=""></li>
+            <li><img src="../images/di2zhang.jpg" alt=""></li>
+            <li><img src="../images/di3zhang.jpg" alt=""></li>
+            <li><img src="../images/di4zhang.jpg" alt=""></li>
+        </ul>
+    </div>
+    <script src="../scripts/tween.js"></script>
+    <script src="../scripts/myLib.js"></script>
+<script>
+    //选项卡
+    //拖拽
+
+    //push()方法
+    //原型链
+    var doc = document,
+        oPhoto = doc.getElementById('photo'),
+        oUl = oPhoto.getElementsByTagName('ul')[0];
+        oImg = oPhoto.getElementsByTagName('img')[0],
+        n = 0;
+
+        doc.onkeydown = function (e) {
+            var e = e || event;
+            var key = e.which;
+
+            if(key == 38){
+                n++;
+                if(n == oUl.children.length){
+                    n = 0;
+                }
+                var T = -n*oImg.offsetHeight;
+                mTween(oUl,{
+                    top:T
+                },500,'linear');
+            }else if(key == 40){
+                n--;
+                if(n == -1){
+                    n = oUl.children.length-1;
+                }
+                var T = -n*oImg.offsetHeight;
+                mTween(oUl,{
+                    top:T
+                },500,'linear');
+            }
+        };
+
+
+
+</script>
+
+
+</body>
+</html>

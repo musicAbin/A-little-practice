@@ -1,0 +1,50 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>CSS Hack</title>
+    <style>
+    	h1{
+    		text-align: center;
+    	}
+    	pre{
+    		margin:0 auto;
+    		width: 1000px;
+    		font-size: 20px;
+    		white-space: pre-wrap;
+    	}
+    </style>
+</head>
+<body>
+	<h1>CSS Hack</h1>
+	<pre>
+		尽可能减少对CSS Hack的使用。Hack有风险，使用需谨慎 
+		CSS Hack就是针对不同的浏览器去写不同的CSS，让它能够同时兼容不同的浏览器，能在不同浏览器得到我们想得到的页面效果。
+		书写顺序，一般是将识别能力强的浏览器的CSS写在后面
+		
+		（1）方式一 条件注释法(IE10及其以上版本已将条件注释特性移除)
+			&lt;!--[if IE]&gt;
+			这段文字只在IE浏览器显示
+			&lt![endif]--&gt;
+		（2）方式二 类内属性前缀法(标准下)
+			“-“中划线和下划线是IE6以下的hack
+			“+”和“*”是IE7以下的hack
+			“\9“ IE6/IE7/IE8/IE9/IE10(IE6以上)
+			“\0” IE8/IE9/IE10都生效(IE8以上)
+			“\9\0“ 只对IE9/IE10生效，是IE9/10的hack
+		（3）CSS hack方式三：选择器前缀法
+			
+	</pre>
+	
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+	
+	
+
+</script>
+</body>
+</html>

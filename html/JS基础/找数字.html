@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+	</head>
+		
+	<body>
+		<script>
+			var arr = ['100px','abc'-6,[],-98765,34,-2,0,'300',,function(){alert(1);},null,document,[],true,'200px'-30,'23.45元',5,Number('abc'),function(){alert(3);},'xyz'-90];
+			
+			/*需求：
+			 * 1、找到arr里所有的数字：-98765,34,-2,0,5
+			 * 2、找到可以转成数字的：'100px',-98765,34,-2,0,'300','23.45元',5
+			 * 3、把转成数字以后，最大值判断出来：300
+			 * 4、把NaN所在的位置找出来：1 14 17 19
+			 */
+			
+			var arrNumber = [];
+			var toNumber = [];
+			var NaNPos = [];
+			var max = 0;
+			var len = arr.length;
+			
+			for(var i=0;i<len;i++){
+				//如果这个数的类型是数字类型，它自己等于自己，那么它一定是一个数字
+				if(typeof arr[i] === 'number' && arr[i] === arr[i]){
+					arrNumber.push(arr[i]);
+				}
+			}
+			console.dir(arrNumber);
+			
+			for(var i=0;i<len;i++){
+				//如果这个数的类型是数字类型，它自己等于自己，那么它一定是一个数字
+				if(typeof parseFloat(arr[i]) === 'number' && parseFloat(arr[i]) === parseFloat(arr[i])){
+					toNumber.push(arr[i]);
+				}
+			}
+			console.dir(toNumber);
+			
+			for(var i=0,len=toNumber.length;i<len;i++){
+				if(max < parseFloat(toNumber[i])){
+					max = parseFloat(toNumber[i]);
+				}
+			}
+			console.log(max);
+			
+			for(var i=0,len=arr.length;i<len;i++){
+				if(arr[i] != arr[i]){
+					NaNPos.push(i);
+				}
+			}
+			console.dir(NaNPos);
+		</script>
+		
+		
+		
+		
+	</body>
+</html>

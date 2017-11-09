@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用边框来做三角形</title>
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <style>
+    	#box{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-color: #f00 #0f0 #00f #ff0;
+    	}
+    	#left{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-left-color: #ff0;
+    	}
+    	#left-right{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-color: transparent #ff0;
+    	}
+    	#left-top{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-top-width: 0;
+    		border-left-color: #f00;
+    	}
+    	#left-bottom{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-bottom-width: 0;
+    		border-left-color: #f00;
+    	}
+    	#right-top{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-top-width: 0;
+    		border-right-color: #f00;
+    	}
+    	#right-bottom{
+    		width: 0;
+    		height: 0;
+    		border: 50px solid transparent;
+    		border-bottom-width: 0;
+    		border-right-color: #f00;
+    	}
+    </style>
+</head>
+<body>
+	<!--同一元素两条边框相交的地方是斜线-->
+	<div id="box"></div>
+	<div id="left"></div>
+	<div id="left-right"></div>
+	<div id="left-top"></div>
+	<div id="left-bottom"></div>
+	<div id="right-top"></div>
+	<div id="right-bottom"></div>
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<script src="../src/bootstrap.js" ></script>
+
+</body>
+</html>

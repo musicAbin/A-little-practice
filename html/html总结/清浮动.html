@@ -1,0 +1,93 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="../css/bootstrap.css" />-->
+    <title>清浮动</title>
+    <style>
+    	h1{
+    		text-align: center;
+    	}
+    	pre{
+    		margin:0 auto;
+    		width: 1000px;
+    		font-size: 20px;
+    		white-space: pre-wrap;
+    		
+    	}
+    	
+    </style>
+</head>
+<body>
+	<h1>清浮动</h1>
+	<pre>
+		清浮动两种方法：(1)clear  (2)BFC/hasLayout
+		BFC:块级格式化上下文，它指的是一个独立的块级渲染区域，只有Block-level BOX参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素。
+		hasLayout:haslayout是Windows Internet Explorer渲染引擎的一个内部组成部分。当一个元素的 hasLayout属性值为true时，我们说这个元素有一个布局（layout）。如果它设置成了true，它就不得不去渲染它自己，因此元素不得不扩展去包含它的流出的内容。如果haslayout没有被设置成true，那么元素得依靠某个祖先元素来渲染它。这就是很多的ie bugs诞生的地方。
+		
+		
+		BFC(标准浏览器)
+		1、float值不为none
+		2、overflow的值不为visible
+		3、display值为table-cell、table-caption、inline-block中的任何一个
+		4、position的值为absolute和fixed
+		5、width|height|min-height|min-width(!auto)
+		
+		hasLayout(IE6/7)
+			IE6/7
+				(1)height/width(!auto)
+				(2)float:(left或right)
+				(3)position:absolute
+				(4)display:inline-block
+				(5)zoom:(除normal外任意值)
+				(6)writing-mode:tb-rl
+			IE7
+				(1)min-height:(任意值)
+				(2)max-height:(除none外任意值)
+				(3)min-width:(任意值)
+				(4)max-width:(除none外任意值)
+				(5)overflow: (除 visible 外任意值)
+				(6)overflow-x: (除 visible 外任意值)
+				(7)overflow-y: (除 visible 外任意值)
+				(8)position: fixed
+			
+		1、加高
+			问题：扩展性不好
+		2、父级浮动
+			问题：页面中所有元素都加浮动，margin左右自动失效，不能居中
+		3、inline-block
+			问题：margin左右自动失效，不能居中
+		4、空标签清浮动
+			在浮动元素下加&lt;div class="clear"&gt;&lt;div&gt;
+			.clear{height:0;font-size:0;clear:both;}
+			问题：IE6最小高度19px(解决后IE6下还有2px偏差)
+		5、br清浮动
+			在浮动元素下加&lt;br clear="all" /&gt;
+			问题：不符合工作当中，结构、样式、行为三者分离的要求
+		6、after伪对象(现在主流方法)
+			.clear:after{content:'';display:block;clear:both;}
+			.clear{zoom:1}
+		7、overflow:hidden
+			问题：需要配合宽度或者zoom来兼容IE6/7
+			overflow:scroll|auto|hidden;
+			overflow:hidden;
+		
+	</pre>
+	
+	
+	
+	
+	
+	
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+
+	
+	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对border-radius的研究</title>
+    <style>
+    	*{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        pre{
+            margin:0 auto;
+            width: 1000px;
+            font-size: 20px;
+            white-space: pre-wrap;
+        }
+        div[id*="box"]{
+            margin:20px;
+            display: inline-block;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #ff0;
+        }
+        #box2{
+            width: 100px;
+            height: 100px;
+            border-radius: 100% 0;
+            background: #ff0;
+        }
+        #box3{
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 50% 0 0;
+            background: #ff0;
+        }
+        #box4{
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 50% 0;
+            background: #ff0;
+        }
+        #box5{
+            width: 100px;
+            height: 100px;
+            border-radius: 100% 0 0 0;
+            background: #ff0;
+        }
+        /*
+        另一种写法
+        #box5{
+            width: 100px;
+            height: 100px;
+            border-top-left-radius: 100%;
+            background: #ff0;
+        }
+        */
+        #box6{
+            width: 100px;
+            height: 50px;
+            border-radius: 50px 50px 0 0;
+            background: #ff0;
+        }
+        #box7{
+            width: 50px;
+            height: 100px;
+            border-radius: 0 50px 50px 0;
+            background: #ff0;
+        }
+        #box8{
+            width: 100px;
+            height: 100px;
+            border-radius: 50% 100%;
+            background: #ff0;
+        }
+        #box9{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%/100%;
+            background: #ff0;
+        }
+        #box10{
+            width: 100px;
+            height: 100px;
+            border-radius: 10% 20% 30% 40% / 90% 80% 70% 60%;
+            background: #ff0;
+        }
+        #box11{
+            width: 100px;
+            height: 100px;
+            border-top-left-radius: 50% 80%;
+            background: #ff0;
+        }
+        #box12{
+            width: 0;
+            height: 0;
+            border: 50px solid #ccc;
+            border-right-color: #fff;
+            border-radius: 50%;
+        }
+        #box13{
+            width: 0;
+            height: 0;
+            border: 50px solid #ccc;
+            border-color: #ccc #fff;
+            border-radius: 50%;
+        }
+        #box14{
+            width: 0;
+            height: 0;
+            border: 50px solid transparent;
+            border-top-color: #ccc;
+            border-radius: 50%;
+        }
+        #box15{
+            width: 200px;
+            height: 100px;
+            background: #f00;
+            border-radius: 200px/100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>border-radius</h1>
+    <pre>
+         1、border-radius的单位可以为px、%、em等
+         2、border-radius可以同时设置1到4个值。
+            如果设置1个值，表示4个圆角都使用这个值。
+            如果设置2个值，表示左上角和右下角使用第1个值，右上角和左下角使用第2个值。
+            如果设置3个值，表示左上角使用第1个值，右上角和左下角使用第2个值，右下角使用第3个值。
+            如果设置4个值，则依次对应左上角、右上角、右下角、左下角（顺时针顺序）。
+         3、可以同时设置水平半径/垂直半径，用斜杠隔开
+         4、除了同时设置四个圆角以外，还可以单独对每个角进行设置。对应四个角，CSS3提供四个单独的属性：
+        　　border-top-left-radius
+        　　border-top-right-radius
+        　　border-bottom-right-radius
+        　　border-bottom-left-radius
+        这四个属性都可以同时设置1到2个值。
+            如果设置1个值，表示水平半径与垂直半径相等。
+            如果设置2个值，第1个值表示水平半径，第2个值表示垂直半径
+        5、两条切线相交可以确定圆心
+    </pre>
+
+    <div id="box"></div>	
+    <div id="box2"></div>
+    <div id="box3"></div>
+    <div id="box4"></div>
+    <div id="box5"></div>
+    <div id="box6"></div>
+    <div id="box7"></div>
+    <div id="box8"></div>
+    <div id="box9"></div>
+    <div id="box10"></div>
+    <div id="box11"></div>
+    <div id="box12"></div>
+    <div id="box13"></div>
+    <div id="box14"></div>
+    <div id="box15"></div>
+
+	
+	
+	
+	
+
+
+
+
+
+
+</body>
+</html>

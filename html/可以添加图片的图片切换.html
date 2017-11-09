@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+		#box{margin:90px auto;width:500px;height:300px;text-align: center;}
+		#img{width:450px;height:250px;margin:5px 0;}
+		input{padding:0 10px;height:30px;line-height: 30px;font-size:14px;background: #0f0;border:none;color:#fff;cursor: pointer;}
+		input:hover{font-weight: bold;}
+		</style>
+	</head>
+		
+	<body>
+		<div id="box">
+			<img id="img" src="../images/di1zhang.jpg" alt="" /><br />
+			<input id="prev" type="button" value="上一张" />
+			<input id="next" type="button" value="下一张" />
+			<input id="add" type="button" value="添加" />
+		</div>
+		<script>
+			/*需求：点击下一张按钮图片跳转到下一张，点击上一张按钮，图片跳转到上一张
+			 * 1、下一张
+			 * 	（1）获取下一张按钮
+			 * 	（2）给按钮添加事件处理函数
+			 * 	（3）图片跳转到下一张
+			 * 	（4）如果图片跳转到最后一张，那么让图片从第一张开始显示
+			 * 2、上一张
+			 * 	（1）获取上一张按钮
+			 * 	（2）给按钮添加事件处理函数
+			 * 	（3）图片跳转到上一张
+			 * 	（4）如果图片跳转到第一张，那么让图片从最后一张开始显示
+			 */
+			
+			//获取元素
+			var oImg = document.getElementById('img');
+			var oNext = document.getElementById('next');
+			var oPrev = document.getElementById('prev');
+			var oAdd = document.getElementById('add');
+			var oldImg = ['../images/di1zhang.jpg','../images/di2zhang.jpg'];
+			var newImg = ['../images/di3zhang.jpg','../images/di4zhang.jpg','../images/di5zhang.jpg'];
+			var num = 0;	// 声明一个变量并赋值，用来表示数组下标，从而来控制显示的是那张图片
+			var n = -1;		// 声明一个变量并赋值，用来表示数组下标，从而来控制添加的是那张图片
+			
+			// 点击下一张按钮，图片跳转到下一张
+			oNext.onmousedown = function (){
+				num++;	// 每次点击下一张按钮，num的值都加1，从而来控制显示下一张图片
+				// 如果num的值大于数组下标，让num值等于0， 从而显示第一张照片，循环显示
+				if(num > oldImg.length-1){
+					num = 0;
+				} 
+				oImg.src = oldImg[num];
+			};
+			
+			// 点击上一张按钮，图片跳转到上一张
+			oPrev.onmousedown = function (){
+				// 由于要让num在1到5之间，num是向下减的，所以取num不小于1
+				num--;	// 每次点击上一张按钮，num的值都减1，从而来控制显示上一张图片
+				// 如果num的值小于0，让num值等于数组下标， 从而显示最后一张照片，循环显示
+				if(num < 0){
+					num = oldImg.length-1;
+				}
+				oImg.src = oldImg[num];
+			};
+			
+			// 点击添加按钮，每次添加一张图片到相册里
+			oAdd.onmousedown = function (){
+				n++;	// 每次点击添加图片按钮，n的值加1，从而来控制添加的是那张图片
+				// 如果n的值小于数组长度，那么把这张图片添加到相册中
+				if(n < newImg.length){
+					oldImg.push(newImg[n]);
+				}
+			};
+
+		</script>
+	</body>
+</html>

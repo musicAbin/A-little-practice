@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>面向对象的选项卡</title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #box span {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+            text-align: center;
+            background: #ccc;
+            cursor: pointer;
+        }
+
+        #box div {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #f00;
+            display: none;
+        }
+
+        #box .dis-b {
+            display: block;
+        }
+
+        #box .dis-n {
+            display: none;
+        }
+
+        #box .bg-y {
+            background: #ff0;
+        }
+    </style>
+    <script src="../scripts/myLib.js"></script>
+    <script>
+        //初始化全局变量
+        var doc = document,
+            oBox = null,
+            aSpan = null,
+            aDiv = null;
+
+        addLoadEvent(fnLoad);
+        //加载
+        function fnLoad() {
+            var tab = new Tab();
+
+            tab.init();
+        };
+        //属性
+        function Tab(){
+            this.oBox = doc.getElementById('box');
+            this.aSpan = this.oBox.getElementsByTagName('span');
+            this.aDiv = this.oBox.getElementsByTagName('div');
+        }
+        //初始化
+        Tab.prototype.init = function () {
+            var _this = this;
+
+            for (var i = 0; i < this.aSpan.length; i++) {
+                this.aSpan[i].index = i;
+                this.aSpan[i].onmousedown = function () {
+                    _this.fnTab(this);
+                };
+            }
+        };
+        //核心代码
+        Tab.prototype.fnTab = function (_this2) {
+            for (var j = 0; j < this.aSpan.length; j++) {
+                this.aSpan[j].className = '';
+                this.aDiv[j].className = 'dis-n';
+            }
+            _this2.className = 'bg-y';
+            this.aDiv[_this2.index].className = 'dis-b';
+        };
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        <span class="bg-y">1</span><span>2</span><span>3</span>
+        <div class="dis-b">1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+</html>

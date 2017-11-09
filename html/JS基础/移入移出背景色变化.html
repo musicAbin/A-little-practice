@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>移入移出li背景色变化</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#list li{height:30px;background: #f00;margin: 10px;cursor: pointer;}
+		</style>
+	</head>
+		
+	<body>
+		<ul id="list">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		
+		
+<!--<script src="../scripts/tween.js"></script>
+		<script src="../scripts/mTween3.js"></script>-->
+		<script>
+			var aLi = document.getElementsByTagName('li');
+			
+			for(var i=0,len=aLi.length;i<len;i++){
+				aLi[i].onmouseover = function (){
+					for(var i=0;i<len;i++){
+						aLi[i].style.background = '#f00';
+					}
+					if(this.nextElementSibling){
+						this.nextElementSibling.style.background = '#f0f0f0';
+					}
+					if(this.previousElementSibling){
+						this.previousElementSibling.style.background = '#f0f0f0';
+					}
+					this.style.background = '#0f0';
+				};
+			}
+		
+		</script>
+	</body>
+</html>

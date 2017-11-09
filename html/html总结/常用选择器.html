@@ -1,0 +1,117 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>常用选择器</title>
+    <style>
+    	h1{
+    		text-align: center;
+    	}
+    	pre{
+    		margin: 0 auto;
+    		width: 1000px;
+    		font-size: 20px;
+    		white-space: pre-wrap;
+    	}
+    	
+    	div[class~=box2]{
+    		width: 100px;
+    		height: 100px;
+    		background: #f00;
+    	}
+    	
+    	div{
+    		width: 100px;
+    		height: 100px;
+    		background: #00f;
+    	}
+    	
+    	input:focus{
+    		background:#f00;
+    	}
+    	input[type=checkbox]:checked + span{
+    		background: #f00;
+    	}
+    	ul li:not(:last-child){
+    		border-bottom: 1px solid #f00;
+    	}
+    </style>
+</head>
+<body>
+	<h1>常用选择器</h1>
+	<pre>
+		一般选择器：
+			1、通配符(*)
+			2、id选择器
+			3、class选择器
+			4、标签选择器
+			
+		关系选择器：(除后代IE6以上外，其余IE7以上)
+			1、后代选择器(空格)
+			2、子选择器(>)
+			3、下一个兄弟选择器(+)
+			4、下面所有兄弟选择器(~)
+			
+		属性选择器：(IE7以上支持)
+			1、E[attr]
+			2、E[attr=val]
+			3、E[attr~=val](选择具有att属性且属性值为一用空格分隔的字词列表，其中一个等于val的E元素,包括只有一个值的情况)
+			4、E[attr^=val]
+			5、E[attr$=val]
+			6、E[attr*=val]
+			7、E[attr|=val](选择具有att属性且属性值为以val开头并用连接符"-"分隔的字符串的E元素，如果属性值仅为val，也将被选择)
+			
+		伪类选择器：
+			1、link(IE6以上)
+			2、visited(IE6以上)
+			3、hover(IE7以上，IE6只支持a标签)
+			4、active(IE8以上)
+			5、focus(IE8以上，设置对象在成为输入焦点（该对象的onfocus事件发生）时的样式。)
+			6、not(s)(IE9以上、匹配不含有s选择符的元素E)
+			7、root(IE9以上，匹配E元素在文档的根元素)
+			8、first-child(IE7以上，匹配父元素的第一个子元素)
+			9、last-child(IE9以上，匹配父元素的最后一个子元素)
+			10、E:nth-child(n)(IE9以上，匹配父元素的第n个子元素E，假设该子元素不是E，则选择符无效)
+			11、E:nth-last-child(n)(IE9以上，匹配父元素的倒数第n个子元素E，假设该子元素不是E，则选择符无效)
+			12、first-of-type(IE9以上，匹配同类型中的第一个同级兄弟元素E)
+			13、last-of-type(IE9以上，匹配同类型中的倒数第一个同级兄弟元素E)
+			14、nth-of-type(n)(IE9以上，匹配同类型中的第n个同级兄弟元素E)
+			15、nth-last-of-type(n)(IE9以上，匹配同类型中的倒数第n个同级兄弟元素E)
+			16、checked(IE9以上，匹配用户界面上处于选中状态的元素)
+			17、enable(IE9以上，匹配用户界面上处于可用状态的元素)
+			18、disable(IE9以上，匹配用户界面上处于禁用状态的元素)
+			
+		伪对象选择器
+			1、first-letter(IE9以上，设置对象内的第一个字符的样式，仅适用于块元素)
+			2、first-line(IE9以上，设置对象内的第一行样式，仅适用于块元素)
+			3、before(设置在对象前发生的内容。用来和content属性一起使用，并且必须定义content属性 )
+			4、after(设置在对象后发生的内容。用来和content属性一起使用，并且必须定义content属性 )
+            5、selection
+			
+	</pre>
+	<div class="box1 box2"></div>
+	<div id="box1"></div>
+	<input type="text" />
+	
+	<label><input id="male" type="checkbox" /><span>男</span></label>
+	<label><input id="female" type="checkbox" checked /><span>女</span></label>
+	
+	<ul>
+		<li>001</li>
+		<li>002</li>
+		<li>003</li>
+		<li>004</li>
+		<li>005</li>
+	</ul>
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+	
+	
+
+</script>
+</body>
+</html>

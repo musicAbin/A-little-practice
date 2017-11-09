@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form {
+            margin: 10px 0;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+    <script>
+
+        /*
+        * 1.通过表单，可以添加数据到表格中显示
+        * 2.id自动根据已有的最大id值进行累加，删除一条记录的时候，最大id值不会变化（id的值不是根据表格中编号的最大值去计算）
+        * 3.隔行变色，新增加的行应该也需要隔行变色的
+        * 4.鼠标移入高亮
+        * 5.全选/全不选（checkAll和下面的每一个checkbox是有关联的）
+        * 6.选中变色
+        * 7.上移/下移
+        * 8.删除
+        *
+        * 9.选做：排序
+        * */
+		
+		
+		/*问题：
+		 * 	1、
+		 * 
+		 */
+        var data = [
+            {
+                id: 1,
+                name : '刘伟',
+                sex : '男',
+                age : 32
+            },
+            {
+                id: 2,
+                name : '莫涛',
+                sex : '男',
+                age : 28
+            },
+            {
+                id: 3,
+                name : '小美',
+                sex : '女',
+                age : 18
+            }
+        ];
+
+        window.onload = function() {
+            //获取元素
+            var tab = document.getElementById('tab1');
+            var tbody = tab.tBodies[0];
+            var oForm = document.getElementById('form');
+            var oCheckAll = document.getElementById('checkAll');
+            var aCheckbox = tbody.getElementsByTagName('input');
+            var oSubmit = oForm.submit;
+            var num = 3;
+            var arrColor = ['#ffc','#f0f0f0'];
+            var oldColor = '';
+            var oRank = oForm.rank; 
+            
+            //给排序按钮添加事件处理函数
+            oRank.onmousedown = function (){
+            	//如果排序字段和排序方式有一个为空，那么此函数返回
+				if(!oForm.orderName.value || !oForm.orderBy.value){
+					return;
+					alert('请选择排序字段和方式');
+				}
+				//调用排序函数
+				fnOrder(oForm.orderName.value,oForm.orderBy.value);
+				//调用改变颜色函数
+				changeColor();
+            };
+            
+            function fnOrder(orderName,orderBy){
+            	//获取所有行
+            	var oRows = tbody.rows;
+            	//定义一个数组arr，用来存储所有行
+            	var arr = [];
+            	
+				//循环遍历所有行，把每一行都扔进数组
+            	for(var i=0,len=oRows.length;i<len;i++){
+            		arr.push(oRows[i]);
+            	}
+            	
+            	//调用数组sort排序算法
+				arr.sort(function(a,b){
+					//选择排序字段
+					//根据id排序
+					if(orderName == 'id'){
+						a = parseInt(a.cells[1].innerHTML);
+						b = parseInt(b.cells[1].innerHTML);
+					//根据age排序
+					}else if(orderName== 'age'){
+						a = parseInt(a.cells[4].innerHTML);
+						b = parseInt(b.cells[4].innerHTML);
+					}
+					
+					//升序
+					if(orderBy == 'asc'){
+						return a-b;
+					//降序
+					}else if(orderBy == 'desc'){
+						return b-a;
+					}
+				});
+				
+				for ( var i=0; i<arr.length; i++ ) {
+	                tbody.appendChild(arr[i]);
+	            }
+            }
+            
+			//初始化数据
+            for ( var i=0; i<data.length; i++ ) {
+                addData(data[i]);
+            }
+
+            //给全选按钮添加事件处理函数
+            oCheckAll.onmousedown = fnCheckAll;
+            //全选、全不选
+            function fnCheckAll() {
+                for(var i=0,len=aCheckbox.length;i<len;i++){
+                    aCheckbox[i].checked = oCheckAll.checked;
+
+                    if(oCheckAll.checked){
+                        tbody.rows[i].style.background = '#0ff';
+                    }else{
+                        changeColor();
+                    }
+                }
+            }
+
+            //给提交按钮添加事件处理函数
+            oSubmit.onmousedown = function () {
+                //当输入数据不完整时，进行提示
+                if(!oForm.username.value || !oForm.sex.value || !oForm.age.value){
+                    alert('请输入完整数据');
+                    return;
+                }
+
+                //每次点击提交按钮，调用addData函数，增加一条数据。
+                addData({
+                    id: ++num,
+                    name : oForm.username.value,
+                    sex : oForm.sex.value,
+                    age : oForm.age.value
+                });
+                //调用隔行变色函数
+               	changeColor();
+               	//每次提交数据后，全选按钮设置为false
+               	oCheckAll.checked = false; 
+            }
+			
+			//调用隔行变色函数
+			changeColor();
+			//初始化，隔行变色
+			function changeColor(){
+				//隔行变色
+				for(var i=0;i<tbody.rows.length;i++){
+					var check =  tbody.rows[i].cells[0].children[0].checked; 
+					if(!check){
+						tbody.rows[i].style.background = arrColor[i%2];
+						tbody.rows[i].color = arrColor[i%2];
+					}
+				}
+			}
+			
+            //封装一个添加数据的函数
+           function addData(data) {
+                var tr = document.createElement('tr');
+                
+                //checkbox
+                var td0 = document.createElement('td');
+                var checkBox = document.createElement('input');
+                checkBox.type = 'checkbox';
+                td0.appendChild(checkBox);
+                tr.appendChild(td0);
+                
+                checkBox.onmousedown = function () {
+                    if(this.checked){
+                        tr.style.background = '#0ff';
+                    }else{
+                    	tr.style.background = '#ff0';
+                    }
+                    
+					//循环遍历所有checkbox
+                    for(var i=0,len=aCheckbox.length;i<len;i++) {
+                    	//如果有一个没有选中，那么就把全选按钮checked设为false，并返回
+                        if (!aCheckbox[i].checked) {
+                            oCheckAll.checked = false;
+                            return;
+                        }
+                    }
+                    //否则，全选按钮的checked值设为true
+                    oCheckAll.checked = true;
+                }
+
+                //编号
+                var td1 = document.createElement('td');
+                td1.innerHTML = data.id;
+                tr.appendChild(td1);
+
+                //姓名
+                var td2 = document.createElement('td');
+                td2.innerHTML = data.name;
+                tr.appendChild(td2);
+
+                //性别
+                var td3 = document.createElement('td');
+                td3.innerHTML = data.sex;
+                tr.appendChild(td3);
+
+                //年龄
+                var td4 = document.createElement('td');
+                td4.innerHTML = data.age;
+                tr.appendChild(td4);
+
+                //操作
+                var td5 = document.createElement('td');
+
+                //下移
+                var upMove = document.createElement('button');
+                upMove.innerHTML = '上移';
+                td5.appendChild(upMove);
+                //给上移按钮添加事件处理函数
+                upMove.onmousedown = function () {
+                	//如果点击的上移按钮的上一个兄弟存在，就把当前这行插入上一个兄弟的前面
+                    if(tr.previousElementSibling){
+                        tbody.insertBefore(tr,tr.previousElementSibling);
+                        changeColor();
+                    }
+                }
+                
+                //上移
+                var downMove = document.createElement('button');
+                downMove.innerHTML = '下移';
+                td5.appendChild(downMove);
+                //给上移按钮添加事件处理函数
+                downMove.onmousedown = function () {
+                	//如果点击的上移按钮的上一个兄弟存在，就把当前这行插入上一个兄弟的前面
+                    if(tr.nextElementSibling){
+                        tbody.insertBefore(tr.nextElementSibling,tr);
+                        changeColor();
+                    }
+                }
+                
+                //删除
+                var del = document.createElement('button');
+                del.innerHTML = '删除';
+                td5.appendChild(del);
+                //给删除按钮添加事件处理函数
+                del.onmousedown = function (){
+                	//点击删除，删除当前这一行
+                	tbody.removeChild(tr);
+                	//删除后，隔行变色
+                	changeColor();
+                	//如果表格中有数据
+                	console.log(tbody.rows.length);
+                    if(tbody.rows.length > 0){
+						//循环遍历所有checkbox
+	                    for(var i=0,len=aCheckbox.length;i<len;i++) {
+	                    	//如果有一个没有选中，那么就把全选按钮checked设为false，并返回
+	                        if (!aCheckbox[i].checked) {
+	                            oCheckAll.checked = false;
+	                            return;
+	                        }
+	                    }
+	                    //否则，全选按钮的checked值设为true
+	                    oCheckAll.checked = true;
+					}else{
+					    oCheckAll.checked = false;
+					}
+                };
+
+                tr.appendChild(td5);
+                
+                //鼠标移入
+                tr.onmouseover = function () {
+                    //当鼠标移入时，判断是否选中，如果没有选中执行下面操作
+                    if(checkBox.checked){
+                        this.style.background = '#0ff';
+                    }else{
+                        this.style.background = '#ff0';
+                    }
+                }
+
+                //鼠标移出
+                tr.onmouseout = function () {
+                    //如果选中，变色，如果没有选中，恢复原来颜色
+                    if(checkBox.checked){
+                        this.style.background = '#0ff';
+                    }else{
+                    	this.style.background = this.color;
+                    }
+                }
+                
+                tbody.appendChild(tr);
+            }
+        }
+    </script>
+</head>
+
+<body>
+<form id="form">
+    <input type="text" name="username" />
+    <select name="sex">
+        <option value="">请选择一个性别</option>
+        <option value="男">男</option>
+        <option value="女">女</option>
+    </select>
+    <input type="text" name="age" />
+    <input type="button" value="提交" name="submit">
+	<p>
+	    <select name="orderName">
+	        <option value="">选择一个排序字段</option>
+	        <option value="id">编号</option>
+	        <option value="age">年龄</option>
+	    </select>
+	    <select name="orderBy">
+	        <option value="">选择一个排序方式</option>
+	        <option value="asc">升序</option>
+	        <option value="desc">降序</option>
+	    </select>
+	    <input type="button" value="排序" name="rank">
+	</p>
+</form>
+<!--选做-->
+
+<table border="1" width="100%" id="tab1">
+    <thead>
+    <tr>
+        <th>全选 <input id="checkAll" type="checkbox" name="checkAll"></th>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+</body>
+</html>

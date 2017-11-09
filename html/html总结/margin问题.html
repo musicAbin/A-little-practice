@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>margin问题</title>
+    <style>
+    	body,ul{
+    		marign: 0;
+    		padding: 0;
+    	}
+    	li{
+    		list-style: none;
+    	}
+    	div[id*=box]{
+    		width: 100px;
+    		height: 100px;
+    		background: #f00;
+    		margin:10px;
+    	}
+    	#div1{
+    		width: 300px;
+    		height: 300px;
+    		background: #f00;
+    	}
+    	#div2{
+    		width: 100px;
+    		height: 100px;
+    		background: #00f;
+    		margin-top:20px;
+    	}
+    	ul{
+    		width: 320px;
+    		overflow: hidden;
+    	}
+    	li{
+    		float: left;
+    		width: 100px;
+    		height: 100px;
+    		background: #f00;
+    		margin:10px 0;
+    	}
+    </style>
+</head>
+<body>
+	<!--上下margin会叠压-->
+	<div id="box1"></div>
+	<div id="box2"></div>
+	
+	<!--一般情况margin会叠压，在float的时候，上下margin不会发生叠压-->
+	<ul>
+		<li>001</li>
+		<li>002</li>
+		<li>003</li>
+		<li>004</li>
+		<li>005</li>
+		<li>006</li>
+	</ul>
+	
+	<!--在IE6、7下和一些低版本浏览器下，父子级包含的时候，子元素的的上下margin会传递给父级-->
+	<div id="div1">
+		<div id="div2"></div>
+	</div>
+	
+	
+
+
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<script src="../src/bootstrap.js" ></script>
+
+</body>
+</html>

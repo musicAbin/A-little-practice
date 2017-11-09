@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>商品数量</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#wrap{width:450px;margin:20px auto;font-size:14px;}
+			#ul{margin-bottom: 10px;}
+			#ul li{margin:5px 0;}
+			#ul input{width:30px;height:30px;}
+			#ul p{display: inline-block;}
+		</style>
+	</head>
+		
+	<body>
+		<div id="wrap">
+			<ul id="ul">
+				<li>
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					<p>单价：<em>12.5元</em></p>
+					<p>小计：<span>0元</span></p>
+				</li>
+				<li>
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					<p>单价：<em>10.5元</em></p>
+					<p>小计：<span>0元</span></p>
+				</li>
+				<li>
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					<p>单价：<em>8.5元</em></p>
+					<p>小计：<span>0元</span></p>
+				</li>
+				<li>
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					<p>单价：<em>8元</em></p>
+					<p>小计：<span>0元</span></p>
+				</li>
+				<li>
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					<p>单价：<em>14.5元</em></p>
+					<p>小计：<span>0元</span></p>
+				</li>
+			</ul>
+			<p id="para">商品合计共：<span>0</span>件，共花费了：<strong>0</strong>元，其中最贵的商品单价是：<em>0</em>元</p>
+		</div>
+		<script>
+			//获取元素
+            var doc = document,
+                oUl = doc.getElementById('ul'),
+                aLi = oUl.getElementsByTagName('li'),
+                oPara = doc.getElementById('para'),
+                oGoodNum = oPara.getElementsByTagName('span')[0],
+                oGoodCount = oPara.getElementsByTagName('strong')[0],
+                oMax = oPara.getElementsByTagName('em')[0],
+                aStrong = oUl.getElementsByTagName('strong'),
+                n = 0;  //定义一个变量n，用来存储购买商品总数量
+
+            for(var i=0,len=aLi.length;i<len;i++){
+				fnCount(aLi[i]);
+			}
+			
+			function fnCount(li){
+                var aInp = li.getElementsByTagName('input');
+                var oStrong = li.getElementsByTagName('strong')[0];
+                var oEm = li.getElementsByTagName('em')[0];
+                var oSpan = li.getElementsByTagName('span')[0];
+                var num = parseInt(oStrong.innerHTML);
+                var price = parseFloat(oEm.innerHTML);
+                var total = parseFloat(oSpan.innerHTML);
+
+
+                //减少商品数量
+                aInp[0].onmousedown = function () {
+                    if(num > 0){
+                        num--;
+                        n--;
+                    }
+
+                    oStrong.innerHTML = num;
+                    oSpan.innerHTML = num*price +'元'
+                    oGoodNum.innerHTML = n;
+
+                    totalFee();
+                };
+
+                //增加商品数量
+                aInp[1].onmousedown = function () {
+                    n++;
+                    num++;
+                    oStrong.innerHTML = num;
+                    oSpan.innerHTML = num*price +'元'
+                    oGoodNum.innerHTML = n;
+
+                    totalFee();
+                };
+            }
+
+            //总费用
+            function totalFee(){
+                var sum = 0;
+                var arrPrice = [];
+
+                //循环遍历所有商品
+                for(var i= 0,len=aStrong.length;i<len;i++){
+                    if(parseInt(aStrong[i].innerHTML) > 0){
+                        sum += parseFloat(aStrong[i].parentNode.lastElementChild.children[0].innerHTML);
+                        arrPrice.push(parseFloat(aStrong[i].parentNode.children[3].children[0].innerHTML));
+                    }
+
+                }
+                oGoodCount.innerHTML = sum;
+
+                //求数组中的最大值
+                oMax.innerHTML = Math.max.apply(null,arrPrice);
+            }
+		</script>
+	</body>
+</html>

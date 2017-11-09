@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+            #star{
+                position: relative;
+                /*border:1px solid #333;*/
+
+            }
+            #star li{
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 12px;
+                border: 10px solid #fff;
+            }
+		
+		</style>
+	</head>
+		
+	<body>
+        <ul id="star">
+
+        </ul>
+<!--<script src="../scripts/tween.js"></script>
+		<script src="../scripts/mTween3.js"></script>-->
+		<script>
+            var oStar = document.getElementById('star');
+            var arrColor = ['red','yellow','blue','green','purple','orange','pink'];
+            var html = '';
+
+            for(var i=0;i<10;i++){
+                for(var j=0;j<10;j++){
+                    var num  = Math.floor(Math.random()*(arrColor.length));
+                    var randomColor = arrColor[num];
+
+                    html += '<li x="'+j+'" y="'+i+'" style="left:'+j*60+'px;top:'+i*60+'px;background: '+randomColor+'">'+(j+i*10)+'</li>';
+                }
+            }
+            oStar.innerHTML = html;
+
+            var aLi = document.querySelectorAll('li');
+
+            for(var i=0,len=aLi.length;i<len;i++){
+                aLi[i].onmousedown = function(){
+                    var _this = this;
+                    fnStar(_this);
+                };
+
+                function fnStar(_this) {
+                    var x = Math.floor(_this.getAttribute('x'));
+                    var y = Math.floor(_this.getAttribute('y'));
+                    var liBg = _this.style.background;
+                    _this.style.display = 'none';
+
+                    //左
+                    if(x != 0 && _this.previousElementSibling.style.background == liBg){
+                        _this.previousElementSibling.style.display = 'none';
+                    }
+
+                    //右
+                    if(x != 9 && _this.nextElementSibling.style.background == liBg){
+                        _this.nextElementSibling.style.display = 'none';
+                    }
+
+                    //上
+                    if(y != 0 && aLi[x+y*10-10].style.background == liBg){
+                        aLi[x+y*10-10].style.display = 'none';
+                    }
+
+                    if(y != 9 && aLi[x+y*10+10].style.background == liBg){
+                        aLi[x+y*10+10].style.display = 'none';
+                    }
+                };
+            }
+
+		</script>
+	</body>
+</html>

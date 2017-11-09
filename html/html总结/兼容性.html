@@ -1,0 +1,120 @@
+<!--<!doctype html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="../css/bootstrap.css" />-->
+    <title>兼容性</title>
+    <style>
+    	h1{
+    		text-align: center;
+    	}
+    	pre{
+    		margin:0 auto;
+    		width: 1000px;
+    		font-size: 20px;
+    		white-space: pre-wrap;
+    		
+    	}
+    	.box{
+    		position: fixed;
+    		width: 100px;
+    		height: 100px;
+    		background: #f00;
+    		left:200px;
+    		top:20px;
+    	}
+    	
+    </style>
+</head>
+<body style="height: 1000px;">
+	<h1>兼容性</h1>
+	<pre>
+		1、IE6双边距bug
+			IE6下块属性标签浮动，并且有横向margin，margin会加倍
+			解决方法：
+				display:inline;
+		2、IE6下最小高度19px
+			解决办法：overflow:hidden;
+		3、图片下方间隙问题
+			(1)display:block(改变标签本身特性)
+			(2)overflow:hidden(必须知道图片高度)
+			(3)vertical-align(暂时最完美的方案)
+		4、IE6下不支持fixed
+			与绝对定位的特性基本一致，当设置偏移量时，差别是始终相对浏览器可视窗口进行定位；当不设置偏移量时，以它的父级为参考。	当只设置left值时，水平上相对于浏览器可视窗口定位，垂直不改变。
+		5、非标准下透明度问题
+			标准 不透明度：opacity:0~1;
+			非标准 不透明度：IE滤镜：filter:alpha(opacity=0~100);
+						
+		6、IE6下父级的overflow:hidden包不住子级的relative
+			解决办法：给父级加相对定位
+		7、position:absolute;
+			在 IE6 下定位元素的父级宽高都为奇数，那么在 IE6 下定位元素的 right和bottom都有1像素的偏差。(宽度为奇数时，right有1px误差；高度为奇数时，bottom有1px的误差。)
+		8、IE6下li部分兼容问题
+			1、左右两列布局，右边右浮动，IE6/7下折行；(左边元素浮动)
+			2、IE/7中li下元素都浮动，在IE/7下li下方会产生几px间隙问题
+			解决办法：1、给li加浮动
+				   2、加vertical-align:top;
+			3、IE6下最小高度问题和li间隙问题共存的时候，给li浮动加浮动，然后给li加宽度
+		9、select/option(IE8以下不支持)
+			对高度的支持不兼容
+			设置样式有很多兼容性问题
+			解决办法：模拟下拉菜单
+		10、textarea 文本域
+			各个浏览器下的默认滚动条不兼容
+			CSS3新增resize调整尺寸属性
+		11、表单元素(垂直居中)
+			方法一：表单元素input属于inline-block元素，如果要让他们并在一起垂直居中，用vertical-align:middle，加一个空的标签设置高
+			方法二：设置label为inline-block元素，给label加line-height和height，让label里面的文字居中，给并在同一行的元素都加vertical-align:middle;
+		12、IE6下表单元素input背景滚动问题
+			解决方法：给背景加fixed，把背景加给父级
+		13、在IE6下，元素浮动，如果宽度需要内容撑开，就给里面的块元素都加浮动
+		14、1px dotted在IE6下不支持(显示为虚线)
+			解决方法：切背景平铺
+		15、	当一行子元素占有的宽度之和和父级的宽度相差超过3px，或者有不满行状态的时候，最后一行子元素的下margin在IE6下就会失效(包括3px)  
+		16、IE6下的文字溢出bug
+			子元素的宽度和父级的宽度相差小于3px（2,1,0）的时候，两个浮动元素中间有注释或者内嵌元素
+			解决办法：
+				1、用div把注释或者内嵌元素用div包起来
+				2、两个浮动元素中间避免出现内联元素或者注释
+				3、与父级宽度相差3px或以上
+		17、当浮动元素和绝对定位元素是并列关系，并且叠在一起时候，在IE6下绝对定位元素会消失
+			解决办法：给定位元素外面包个div
+		18、不要给tr和tbody同时加样式，如果同时加，在IE6下，只显示tr的样式(thead同理)	
+		19、在IE6、7下，输入类型的表单控件上下各有1px的间隙
+			解决办法：给input加浮动
+		20、在IE6、7下，输入类型的表单控件加border:none无效;
+			解决办法：border:0
+		
+		21、IE6不支持png24图片
+			解决方案：1、JS插件 (问题:不能处理body上面的png24)
+						DD_belatedPNG.fix(‘xxx’);
+				   2、原生滤镜：
+				   		_background:none;_filter :progid:DXImageTransform.Microsoft.AlphaImageLoader(src="XX.png", sizingMethod="crop");
+		22、!important  
+			提升样式优先级权重// background:red!important;
+			在IE6下 在important后边再加一条同样的样式，会破坏掉important的作用，按照默认的优先级顺序来走。
+		23、在IE6下，使用margin负值超出父级的部分会被截掉
+			解决办法：给这个元素加相对定位
+		24、盒模型的怪异模式
+			在IE6、7、8下不设置文档声明的时候，页面的盒模型解析 就会进入怪异模式
+	
+
+	</pre>
+	
+	
+	
+	
+	
+	
+	
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!--<script src="../src/bootstrap.js" ></script>-->
+<script>
+
+	
+	
+
+</script>
+</body>
+</html>

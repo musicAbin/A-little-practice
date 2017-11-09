@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title>图片随机滚动</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+        <style>
+        	#banner{position:relative;margin:90px auto;width:800px;height:100px;overflow:hidden;}
+        	#banner li{position:absolute;top:0;width:180px;height:100px;}
+        	#banner img{width:180px;height:100px;}
+        </style>
+    </head>
+    <body>
+		<ul id="banner">
+			<li>
+				<img src="../images/bg1.jpg" alt="" />
+				<img src="../images/bg2.jpg" alt="" />
+			</li>
+			<li>
+				<img src="../images/bg3.jpg" alt="" />
+				<img src="../images/bg4.jpg" alt="" />
+			</li>
+			<li>
+				<img src="../images/di1zhang.jpg" alt="" />
+				<img src="../images/di2zhang.jpg" alt="" />
+				<img src="../images/di3zhang.jpg" alt="" />
+				<img src="../images/di4zhang.jpg" alt="" />
+			</li>
+			<li>
+				<img src="../images/random1.jpg" alt="" />
+				<img src="../images/random2.jpg" alt="" />
+				<img src="../images/random3.jpg" alt="" />
+				<img src="../images/random4.jpg" alt="" />
+				<img src="../images/random5.jpg" alt="" />
+			</li>
+		</ul>
+    	
+    	<script src="../scripts/tween.js"></script>
+    	<script src="../scripts/mTween3.js"></script>
+    	<script>
+    		//获取元素
+    		var oBanner = document.getElementById('banner');
+    		var aLi = oBanner.getElementsByTagName('li');
+			var aImg = aLi[0].getElementsByTagName('img');
+			//获取一张图片的高度
+    		var imgHeight = parseInt(getStyle(aImg[0],'height'));
+    		
+    		//给所有li加上left值
+			for(var i=0;i<aLi.length;i++){
+	    		aLi[i].style.left = i*200+'px';
+    		}
+    		
+    		for(var i=0;i<aLi.length;i++){
+    			//产生一个随机数，范围在1000到3000
+	    		run(aLi[i],Math.round(Math.random()*2000)+1000);
+    		}
+			
+			//封装一个运动函数
+			function run(obj,t){
+				var aImg = obj.getElementsByTagName('img');
+				var len = aImg.length;
+				
+				//给对象添加自定义属性n
+				obj.n = 0;
+				//设置一个开关用来控制是否到达顶端或者底部
+				obj.onOff = true;
+				
+				//封装一个函数
+				function setTime(){
+					//开一个定时器   		
+					setTimeout(function(){
+						if(obj.n<len-1 && obj.onOff){
+							//当前对象li的n值自增1
+							obj.n++;
+							//如果当前对象li的n值等于当前图片长度减1
+							if(obj.n == len-1){
+								//把当前对象li的m值设置为当前图片长度减1
+								obj.m = len-1;
+								//把当前对象li上的onOff设置为false
+								obj.onOff = false;
+							}
+						}else{
+							//当前对象li的m值自减1
+							obj.m--;
+							//如果当前对象li的m值等于0,则li的top值为0，
+							if(obj.m == 0){
+								//把当前对象li上的n的值也设为0
+								obj.n = 0;
+								//把当前对象li上的onOff的值设为true
+								obj.onOff = true;
+							}
+						}
+						
+						//如果当前对象的onOff为true，那么取值obj.n，如果onOff为false，取值obj.m
+						var topValue = obj.onOff?obj.n:obj.m;
+						
+						//调用mTween运动函数，每隔一段时间走图片一个高度
+						mTween(obj,{
+			    			top:-imgHeight*topValue
+			    		},300,'linear',function(){
+			    			//不断调用自身，接着走一个高度
+			    			setTime();
+			    		});
+					},t);
+				}
+				//调用setTime函数
+				setTime();
+			}
+			
+    	</script>
+    </body>
+</html>

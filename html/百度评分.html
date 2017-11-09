@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#wrap{width:300px;margin:90px auto;}
+			#wrap h3{float:left;font-weight: 600;}
+			#wrap ul{float:left;}
+			#wrap li{float:left;width:20px;height:30px;background: url(../images/star1.jpg) no-repeat;cursor: pointer;margin-right:5px;}
+			#wrap li.star2{background: url(../images/star2.jpg) no-repeat;}
+			#wrap li.star3{background: url(../images/star3.jpg) no-repeat;}
+			#wrap span{float:left;height:30px;line-height: 30px;color:#f00;font-weight: bold;font-size: 20px;}
+		</style>
+	</head>
+		
+	<body>
+	<div id="wrap">
+		<h3>总体评价：</h3>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<span id="text"></span>
+	</div>		
+		<script>
+			/*需求：当鼠标移动到不同的星，显示不同的背景和文字
+			 * 1、当鼠标移动到第1颗星时，第1颗星背景变为灰色，评分变为很差
+			 * 2、当鼠标移动到第2颗星时，第1、2颗星背景变为灰色，评分变为较差
+			 * 3、当鼠标移动到第3颗星时，第1、2、3颗星背景变为黄色，评分变为一般
+			 * 4、当鼠标移动到第4颗星时，第1、2、3、4颗星背景变为黄色，评分变为良好
+			 * 5、当鼠标移动到第5颗星时，第1、2、3、4、5颗星背景变为黄色，评分变为优秀
+		 	 */
+		//获取元素
+		var aLi = document.querySelectorAll('li');
+		var oText = document.getElementById('text');
+		var arrText = ['很差','较差','一般','良好','优秀'];
+		var num = -1;
+		var flag = true; //表示点击了星星
+
+		for(var i=0,len=aLi.length;i<len;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function (){
+				//鼠标移入到li上时，先清空class
+				clearClass();
+				//获取鼠标放在当前li上的自定义索引
+				var num = this.index;
+				
+				setStyle(num);
+                oText.style.display = 'block';
+
+            };
+			
+			aLi[i].onmouseout = function (){
+				//鼠标移出li时，先清空class
+				clearClass();
+				
+				setStyle(num);
+                if(flag){
+                    oText.style.display = 'none';
+                }
+			};
+			
+			aLi[i].onmousedown = function(){
+				//当鼠标点点击某一个li时，获取当前li的自定义索引
+				num = this.index;
+                if(flag){
+                    oText.style.display = 'block';
+                    flag = false;
+                }
+			};
+		}
+		
+		//清空li上的class
+		function clearClass(){
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].className = '';
+			}
+		}
+		
+		//封装一个设置样式函数
+		function setStyle(num){
+			for(var i=0;i<num+1;i++){
+				if(num+1 < 3){
+					aLi[i].className = 'star2';
+				}else{
+					aLi[i].className = 'star3';
+				}
+				oText.innerHTML = arrText[num];
+			}
+		}
+		
+		</script>
+	</body>
+</html>

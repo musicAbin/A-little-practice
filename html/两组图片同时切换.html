@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+		#wrap{margin:90px auto;width:1000px;height:340px;}
+		#btn{text-align: center;margin-top:10px;}
+		#box{float:left;margin:0 30px;text-align: center;}
+		#box2{float:left;text-align: center;}
+		p{font-weight: 600;}
+		#wrap img{width:450px;height:250px;margin:5px 0;}
+		input{padding:0 10px;height:30px;line-height: 30px;font-size:14px;background: #0f0;border:none;color:#fff;cursor: pointer;}
+		input:hover{font-weight: bold;}
+		</style>
+	</head>
+		
+	<body>
+		<div id="wrap" class="clearfix">
+			<div id="btn">
+				<input type="button" value="上一组" />
+				<input type="button" value="下一组" />
+			</div>
+			<div id="box">
+				<p>第一组第1张</p>
+				<img id="img" src="" alt="" />
+			</div>
+			<div id="box2">
+				<p>第二组第1张</p>
+				<img id="img2" src="" alt="" /><br />
+			</div>
+		</div>
+		<script>
+			/*需求：有两组图片需要进行切换，点击下一组，两组图片同时切换到下一张
+			 * 1、第一组
+			 * 	点击图片切换至下一张
+			 * 2、第二组
+			 * 	点击图片切换至下一张
+			 * 3、点击下一组按钮，切换至下一组图片，点击上一组按钮，切换至上一组图片
+			 */
+			
+			//获取元素
+			var aImg = document.getElementsByTagName('img');
+			var aP = document.getElementsByTagName('p');
+			var aBtn = document.getElementsByTagName('input');
+			var arrImg0 = ['../images/di1zhang.jpg','../images/di2zhang.jpg','../images/di3zhang.jpg','../images/di4zhang.jpg'];
+			var arrImg1 = ['../images/view01.jpg','../images/view02.jpg','../images/view03.jpg'];
+			var arrText0 = ['第一组第1张','第一组第2张','第一组第3张','第一组第4张'];
+			var arrText1 = ['第二组第1张','第二组第2张','第二组第3张'];
+			var num0 = 0;
+			var num1 = 0;
+			
+			//初始化第一组图片
+			change0();
+			
+			//初始化第二组图片
+			change1();
+			
+			
+			aBtn[0].onmousedown = function (){
+				prev0();
+				prev1();
+			};
+			
+			aBtn[1].onmousedown = function (){
+				next0();
+				next1();
+			};
+			
+			//点击第一组图片，调用next0函数
+			aImg[0].onmousedown = next0;
+			//点击第二组图片，调用next1函数
+			aImg[1].onmousedown = next1;
+			
+			//显示第一组图片和文字
+			function change1(){
+				aImg[1].src = arrImg1[num1];
+				aP[1].innerHTML = arrText1[num1];
+			}
+			//显示第二组图片和文字
+			function change0(){
+				aImg[0].src = arrImg0[num0];
+				aP[0].innerHTML = arrText0[num0];
+			}
+			
+			//点击第二组图片，显示下一张图片和文字
+			function next1(){
+				num1++;
+				num1 = num1%arrImg1.length;
+				change1();
+			};
+			//点击第一组图片，显示下一张图片和文字
+			function next0(){
+				num0++;
+				num0 = num0%arrImg0.length;
+				change0();
+			};
+			
+			//点击第二组图片，显示上一张图片和文字
+			function prev1(){
+				num1--;
+				if(num1 == -1){
+					num1 = arrImg1.length-1;
+				}
+				change1();
+			}
+			
+			//点击第一组图片，显示上一张图片和文字
+			function prev0(){
+				num0--;
+				if(num0 == -1){
+					num0 = arrImg0.length-1;
+				}
+				change0();
+			}
+		</script>
+	</body>
+</html>

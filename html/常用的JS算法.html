@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用的JS算法</title>
+
+</head>
+<body>
+
+
+<script>
+    //快速排序 Quick Sort
+    //它是实际应用中最常用的一种排序算法，速度快，效率高，快速排序是最优秀的排序算法。
+    //它采用分治法和递归算法
+    //快速排序之所比较快，因为相比冒泡排序，每次交换是跳跃式的。每次排序的时候设置一个基准点，将小于等于基准点的数全部放到基准点的左边，将大于等于基准点的数全部放到基准点的右边。这样在每次交换的时候就不会像冒泡排序一样每次只能在相邻的数之间进行交换，交换的距离就大的多了。因此总的比较和交换次数就少了，速度自然就提高了。
+    //当然在最坏的情况下，仍可能是相邻的两个数进行了交换。因此快速排序的最差时间复杂度和冒泡排序是一样的都是O(N2)，它的平均时间复杂度为O(NlogN)。其实快速排序是基于一种叫做“二分“的思想。
+    // http://developer.51cto.com/art/201403/430986.htm     参考文章
+    var arrQuick = [6,8,2,4,3];
+
+    quickSort(arrQuick,0,arrQuick.length-1);
+
+    console.log(arrQuick,'Quick Sort');
+
+    //封装一个快速排序
+    function quickSort(arr,left,right) {
+
+        if(left > right){
+            return;
+        }
+
+        var temp = arr[left];  //temp中存的就是基准数
+        var i = left;
+        var j = right;
+        var t;
+
+        while (i != j) {
+            while (arr[j] >= temp && i < j) {
+                j--;
+            }
+
+            while (arr[i] <= temp && i < j) {
+                i++;
+            }
+
+            //如果找到了这两个元素，交换它们的位置
+            if (i < j) {
+                t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+        }
+
+        //最终将基准数归位
+        arr[left] = arr[i];
+        arr[i] = temp;
+
+        quickSort(arr,left,i-1);    //继续处理左边，递归
+        quickSort(arr,i+1,right);   //继续处理右边，递归
+    }
+
+
+
+    //冒泡排序 Bubble sort
+    //从垂直方向来说：大的数往上冒，就像冒泡一样，从水平方向来说：大的数往后排，从小到大排序。
+    //num代表一共比较的次数，第一次比较8次，第二次7次，...,最后一次比较1次，一共比较36次。
+    var arrBubble = [6,8,2,4,9,3,7,1,5];
+    var temp;
+    var len = arrBubble.length;
+    var num = 0;
+    //外层循环主要定义了需要排列多少次
+    for(var j=0;j<len-1;j++) {
+        //内层循环主要定义了每排好一次相邻两个数需要比较多少次
+        for (var i=0; i<len-j-1;i++) {
+            if (arrBubble[i] > arrBubble[i+1]) {
+                temp = arrBubble[i];
+                arrBubble[i] = arrBubble[i+1];
+                arrBubble[i+1] = temp;
+            }
+            num++;
+        }
+    }
+    console.log(arrBubble,num,'Bubble sort');
+
+
+
+    //插入排序
+    //选择排序
+    //希尔排序
+    //数组去重
+    //递归算法
+
+</script>
+
+
+</body>
+</html>

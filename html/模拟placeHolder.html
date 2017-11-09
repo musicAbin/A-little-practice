@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #box{
+            position: relative;
+            margin:10px 0;
+        }
+        #box span{
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size:12px;
+            height:32px;
+            line-height:32px;
+            color:#ccc;
+
+        }
+        #text1{
+            height:30px;
+            line-height:30px;
+        }
+        #login p{
+            margin:10px 0;
+        }
+        #login span{
+            display: none;
+            color: #f00;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" name="" id="text1">
+        <span id="span">请输入内容</span>
+    </div>
+    <form id="login">
+        <p>
+            <label for="">请输入用户名：</label>
+            <input type="text" name="username" id="" placeholder="请输入用户名">
+            <span>请输入邮箱或者手机号</span>
+        </p>
+        <p>
+            <label for="">请输入密码：</label>
+            <input type="text" name="password" id="" placeholder="请输入密码">
+            <span>请输入6到20位密码</span>
+        </p>
+
+    </form>
+
+
+    <script src="../scripts/tween.js"></script>
+    <script src="../scripts/myLib.js"></script>
+    <script>
+        //获取元素
+        var doc = document,
+            oText1 = doc.getElementById('text1'),
+            oSpan = doc.getElementById('span'),
+            oLogin = doc.getElementById('login'),
+            oUsername = oLogin.username,
+            oPassword = oLogin.password;
+
+        //给文本框添加oninput事件处理函数
+        oText1.oninput = function () {
+            if(this.value){
+                oSpan.innerHTML = '';
+            }else{
+                oSpan.innerHTML = '请输入内容';
+            }
+        };
+
+        //获取焦点
+        oUsername.onfocus = oPassword.onfocus = function () {
+            //高亮文本框
+            this.style.cssText = 'border:1px solid #00f';
+            //显示提示信息
+            this.nextElementSibling.style.display = 'inline';
+        };
+
+        //用户名，失去焦点
+        oUsername.onblur = function () {
+            this.style.cssText = '';
+            this.nextElementSibling.style.display = 'none';
+        };
+
+        //密码，失去焦点
+        oPassword.onblur = function () {
+            this.style.cssText = '';
+            this.nextElementSibling.style.display = 'none';
+        };
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

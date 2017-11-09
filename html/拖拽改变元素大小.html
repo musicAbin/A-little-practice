@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽改变元素大小</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+            #box{
+                position: absolute;
+                left: 200px;
+                top: 200px;
+                width: 150px;
+                height: 150px;
+                background: #ff0000;
+            }
+
+		</style>
+        <!--<script src="../scripts/tween.js"></script>-->
+        <!--<script src="../scripts/myLib.js"></script>-->
+    </head>
+		
+	<body>
+        <div id="box"></div>
+
+    <script type="text/javascript">
+        //获取元素
+        var oBox = document.getElementById('box');
+        //设置鼠标按下离box的边界距离
+        var dis = 8;
+        var flag = false;
+        var boxInfo = {};
+        var mouseCursor = '';
+        var dir = '';
+
+        document.onmousemove = function (e) {
+            var e = e || event;
+            var disX = e.clientX;
+            var disY = e.clientY;
+            //获取box元素的盒模型信息
+            var disMX = disX - boxInfo.disDX;
+            var disMY = disY - boxInfo.disDY;
+
+            if(flag){
+                switch (dir) {
+                    case 'right':
+                        oBox.style.width = boxInfo.W + disMX + 'px';
+                        return;
+                    case 'left':
+                        oBox.style.width = boxInfo.W - disMX + 'px';
+                        if (disMX < boxInfo.W) {
+                            oBox.style.left = boxInfo.L + disMX + 'px';
+                        }
+                        return;
+                    case 'bottom':
+                        oBox.style.height = boxInfo.H + disMY + 'px';
+                        return;
+                    case 'top':
+                        oBox.style.height = boxInfo.H - disMY + 'px';
+                        if (disMY < boxInfo.H) {
+                            oBox.style.top = boxInfo.T + disMY + 'px';
+                        }
+                        return;
+                    case 'leftTop':
+                        oBox.style.width = boxInfo.W - disMX + 'px';
+                        if (disMX < boxInfo.W) {
+                            oBox.style.left = boxInfo.L + disMX + 'px';
+                        }
+
+                        oBox.style.height = boxInfo.H - disMY + 'px';
+                        if (disMY < boxInfo.H) {
+                            oBox.style.top = boxInfo.T + disMY + 'px';
+                        }
+                        return;
+                    case 'rightTop':
+                        oBox.style.width = boxInfo.W + disMX + 'px';
+
+                        oBox.style.height = boxInfo.H - disMY + 'px';
+                        if (disMY < boxInfo.H) {
+                            oBox.style.top = boxInfo.L + disMY + 'px';
+                        }
+                        return;
+                    case 'leftBottom':
+                        oBox.style.width = boxInfo.W - disMX + 'px';
+                        if (disMX < boxInfo.W) {
+                            oBox.style.left = boxInfo.L + disMX + 'px';
+                        }
+
+                        oBox.style.height = boxInfo.H + disMY + 'px';
+                        return;
+                    case 'rightBottom':
+                        oBox.style.width = boxInfo.W + disMX + 'px';
+
+                        oBox.style.height = boxInfo.H + disMY + 'px';
+                        return;
+                    default:;
+                }
+            }else{
+                var pos = oBox.getBoundingClientRect();
+                document.documentElement.style.cursor = 'default';
+
+                if(e.target == oBox){
+                    //判断鼠标按下的位置
+                    if(disX < pos.left + dis && disY < pos.top + dis) {
+                        dir = 'leftTop';
+                        mouseCursor = 'nw-resize';
+                    }else if(disX > pos.right - dis && disY < pos.top + dis){
+                        dir = 'rightTop';
+                        mouseCursor = 'ne-resize';
+                    }else if(disX < pos.left + dis && disY > pos.bottom - dis){
+                        dir = 'leftBottom';
+                        mouseCursor = 'sw-resize';
+                    }else if(disX > pos.right - dis && disY > pos.bottom - dis){
+                        dir = 'rightBottom';
+                        mouseCursor = 'se-resize';
+                    }else if(disX > pos.right - dis){
+                        dir = 'right';
+                        mouseCursor = 'e-resize';
+                    }else if(disX < pos.left + dis){
+                        dir = 'left';
+                        mouseCursor = 'e-resize';
+                    }else if(disY > pos.bottom - dis){
+                        dir = 'bottom'
+                        mouseCursor = 's-resize';
+                    }else if(disY < pos.top + dis){
+                        dir = 'top'
+                        mouseCursor = 'n-resize';
+                    }else{
+                        mouseCursor = 'default';
+                    }
+
+                    document.documentElement.style.cursor = mouseCursor;
+                }
+            }
+
+            //给盒子添加鼠标单击事件
+            oBox.onmousedown = function (e) {
+                var e = e || event;
+                //获取box的信息
+                boxInfo = {
+                    W : this.offsetWidth,
+                    H : this.offsetHeight,
+                    L : this.offsetLeft,
+                    T : this.offsetTop,
+                    disDX : e.clientX,
+                    disDY : e.clientY
+                };
+
+                //当鼠标按下的时候把flag设为true
+                flag = true;
+
+                return false;
+                document.onmouseup = function (e) {
+                    //鼠标抬起时，把flag设置为false
+                    flag = false;
+                };
+            };
+        };
+
+
+    </script>
+	</body>
+</html>

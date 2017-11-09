@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#iphone{position:relative;width: 280px;height: 590px;background: url(../images/pic_iphone.jpg) no-repeat;}
+			#con{position:absolute;width: 237px;height: 420px;left:22px;top:86px;}
+			#top{height: 370px;width:230px;background: #ffc;overflow: auto;}
+			#bottom{position:absolute;width:227px;height: 40px;background: #f7f7f7;bottom: 0;padding-left:10px;padding-top:10px;}
+			#img{padding:5px;border:1px solid #ccc;border-radius: 5px;cursor: pointer;}
+			#text{height: 30px;line-height: 30px;width:120px;border:1px solid #ccc;border-radius: 5px;}
+			#send{height: 30px;line-height: 30px;border:none;color:#333;background: #f7f7f7;font-size:20px;font-weight: 500;cursor: pointer;}
+		</style>
+	</head>
+	
+	<body>
+		<div id="iphone">
+			<div id="con">
+				<div id="top"></div>
+				<div id="bottom">
+					<img id="img" src="../images/deyi.jpg" alt="" />
+					<input id="text" type="text" value="" />
+					<input id="send" type="button" value="发送" />
+				</div>
+			</div>
+		</div>
+		
+		<script>
+		/*需求：
+		 * 1、从两张头像中选择一个头像
+		 * 2、输入与头像相对应的消息
+		 * 3、点击发送按钮，发送消息，
+		 * 4、手机屏幕上显示消息
+		 * 
+		 */
+			var oTop = document.getElementById('top');
+			var oImg = document.getElementById('img');
+			var oText = document.getElementById('text');
+			var oSend = document.getElementById('send');
+			var num = 0;
+			
+			// 点击图片，切换到另一张图片
+			oImg.onmousedown = function (){
+				if(num == 0){
+					this.src = '../images/dabing.jpg';
+					num = 1;
+				}else{
+					this.src = '../images/deyi.jpg';
+					num = 0;
+				}
+			};
+			// 点击发送按钮，如果文本框中没有输入内容，则弹出警告；如果文本框中输入内容，则发送消息
+			oSend.onmousedown = function (){
+				if(oText.value == ''){			// 如果文本框输入内容为空，那么弹出警告框。
+					alert('请在文本框中输入消息');
+				}else if(num == 0){				// 如果选择的是得意头像，那么在文本框中输入相应内容
+					oTop.innerHTML = oTop.innerHTML+'<div class="clearfix" style="margin:10px;"><img style="float:left;width:22px;height:22px;" src='+oImg.getAttribute("src")+' /><p style="float:left;max-width:160px;line-height:18px;font-size:14px;background-color:#21c618;color:#fff;margin-left:5px;padding:3px">'+oText.value+'</p></div>';
+				}else{							// 如果选择的是大兵头像，那么在文本框中输入相应内容
+					oTop.innerHTML = oTop.innerHTML+'<div class="clearfix" style="margin:10px;"><img style="float:right;width:22px;height:22px;" src='+oImg.getAttribute("src")+' /><p style="float:right;max-width:160px;line-height:18px;font-size:14px;background-color:#21c618;color:#fff;margin-right:5px;padding:3px;">'+oText.value+'</p></div>';
+				}
+				oText.value = '';
+			};
+			
+		</script>
+	</body>
+</html>

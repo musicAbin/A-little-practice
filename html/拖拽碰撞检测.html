@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽碰撞检测</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+            #box{
+                position: absolute;
+                left: 0;
+                top: 0;
+                border:1px solid #f00;
+            }
+            
+            #rect{
+                position: absolute;
+                left: 200px;
+                top: 200px;
+                width: 200px;
+                height: 200px;
+                background: #00f;
+            }
+
+		</style>
+        <!--<script src="../scripts/tween.js"></script>-->
+        <!--<script src="../scripts/myLib.js"></script>-->
+    </head>
+		
+	<body>
+        <div id="rect"></div>
+        <div id="box">
+
+        </div>
+
+
+        <script>
+            //获取元素
+            var oBox = document.getElementById('box');
+            var oRect = document.getElementById('rect');
+            //当鼠标在文档上按下时
+            document.onmousedown = function (e) {
+                var e = e || event;
+                //鼠标在文档上按下时到文档可视区左侧的距离
+                var l =  e.clientX;
+                //鼠标在文档上按下时到文档可视区顶部的距离
+                var t = e.clientY;
+                //定义一个变量dir，用来存储鼠标拖动的方向
+                var dir = '';
+
+                //每次按下鼠标的时候，显示box
+                oBox.style.display = 'block';
+                //鼠标按下的时候，把鼠标位置给box
+                oBox.style.left = l + 'px';
+                oBox.style.top = t + 'px';
+
+                document.onmousemove = function (e) {
+                    var e = e || event;
+                    var disX = e.clientX - l;
+                    var disY = e.clientY - t;
+                    var pos = oRect.getBoundingClientRect();
+                    var boxPos = oBox.getBoundingClientRect();
+
+                    //根据鼠标移动时候位置和鼠标按下时候的位置做比较来判断方向
+                    if(disX > 0 && disY > 0){
+                        dir = 'rightBottom';
+                    }else if(disX < 0 && disY < 0){
+                        dir = 'leftTop';
+                    }else if(disX > 0 && disY < 0){
+                        dir = 'rightTop';
+                    }else if(disX < 0 && disY > 0){
+                        dir = 'leftBottom';
+                    }
+
+                    //先判断鼠标在那个区间，然后做比较即可
+                    if(boxPos.right < pos.left || boxPos.left > pos.right || boxPos.bottom < pos.top || boxPos.top > pos.bottom){
+                        oRect.style.background = '#00f';
+                    }else{
+                        oRect.style.background = '#0f0';
+                    }
+
+                    //根据方向，改变box的大小和位置
+                    switch (dir){
+                        case 'rightBottom':
+                            oBox.style.width = disX + 'px';
+                            oBox.style.height = disY + 'px';
+                            return;
+                        case 'leftTop':
+                            oBox.style.width = -disX + 'px';
+                            oBox.style.height = -disY + 'px';
+                            oBox.style.left = l + disX + 'px';
+                            oBox.style.top = t + disY + 'px';
+                            return;
+                        case 'rightTop':
+                            oBox.style.width = disX + 'px';
+                            oBox.style.height = -disY + 'px';
+                            oBox.style.top = t + disY + 'px';
+                            return;
+                        case 'leftBottom':
+                            oBox.style.width = -disX + 'px';
+                            oBox.style.height = disY + 'px';
+                            oBox.style.left = l + disX + 'px';
+                            return;
+                    }
+                };
+
+                //鼠标抬起
+                document.onmouseup = function () {
+                    //把onmouseup和onmousemove事件清空
+                    document.onmouseup = document.onmousemove = null;
+                    oBox.style.width = 0 + 'px';
+                    oBox.style.height = 0 + 'px';
+                    oBox.style.display = 'none';
+                    oRect.style.background = '#00f';
+                };
+
+                return false;
+            };
+
+
+        </script>
+	</body>
+</html>

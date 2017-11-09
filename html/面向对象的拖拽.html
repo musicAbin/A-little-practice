@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>面向对象的拖拽</title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #box{
+            position: absolute;
+            left:0;
+            top:0;
+            width: 100px;
+            height: 100px;
+            background: #ff0000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="box"></div>
+
+    <script src="../scripts/myLib.js"></script>
+    <script>
+        var doc = null,
+            oBox = null;
+
+        addLoadEvent(fnLoad);
+
+        function fnLoad(){
+            var drag = new Drag();
+
+            drag.init();
+        }
+        //拖拽构造函数
+        function Drag(){
+            doc = document;
+            this.oBox = doc.getElementById('box');
+        }
+        //初始化
+        Drag.prototype.init = function () {
+            var _this = this;
+
+            this.oBox.onmousedown = function(e){
+                var e = e || event;
+                _this.fnDown(e);
+            };
+            return false;
+        }
+        //鼠标按下
+        Drag.prototype.fnDown = function(e) {
+            var _this2 = this;
+            this.disX = e.clientX - this.oBox.offsetLeft;
+            this.disY = e.clientY - this.oBox.offsetTop;
+
+            doc.onmousemove = function (e) {
+                var e = e || event;
+                _this2.fnMove(e);
+            };
+
+            doc.onmouseup = function () {
+                _this2.fnUp();
+            };
+        }
+        //鼠标移动
+        Drag.prototype.fnMove = function(e) {
+            this.oBox.style.left = e.clientX - this.disX + 'px';
+            this.oBox.style.top = e.clientY - this.disY + 'px';
+        };
+        //鼠标抬起
+        Drag.prototype.fnUp = function() {
+            doc.onmousemove = doc.onmouseup = null;
+        };
+
+    </script>
+</body>
+</html>

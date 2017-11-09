@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>动画菜单</title>
+<link rel="stylesheet" href="../css/public.css" />
+<style type="text/css">
+	#photo{margin:90px auto;width:500px;height:400px;}
+	#btn{text-align: center;margin:5px 0;}
+	#btn input{width:60px;height: 20px;line-height: 20px;font-size: 14px;background: #0f0;color:#fff;border:none;}
+	#para{text-align: center;margin:10px 0;}
+	#imgTab{position:relative;width:100%;height: 300px;border:5px solid #ccc;}
+	#imgTab .np{position: absolute;top:50%;width:40px;height: 40px;line-height:40px;margin-top:-25px;background: #fff;font-size:30px;text-align: center;}
+	#prev{left:10px;}
+	#next{right:10px;}
+	.text{position: absolute;width:100%;height: 24px;line-height: 24px;background: #333;color:#fff;text-align: center;}
+	#num{top:0;}
+	#text{bottom: 0;}
+	#img{width:100%;margin-top:20px;}
+</style>
+
+</head>
+<body>
+	<div id="photo">
+		<div id="btn">
+			<input type="button" value="循环切换" />
+			<input type="button" value="顺序切换" />
+		</div>
+		<p id="para">顺序切换</p>
+		<div id="imgTab">
+			<p id="num" class="text">1/4</p>
+			<p id="text" class="text">第一张</p>
+			<a id="next" class="np" href="javascript:;">></a>		
+			<a id="prev" class="np" href="javascript:;"><</a>
+			<img id="img" src="" alt="" />
+		</div>
+	</div>
+	<script type="text/javascript">
+		//获取元素
+		var oPrev = document.getElementById('prev');
+		var oNext = document.getElementById('next');
+		var oImg = document.getElementById('img');
+		var oNum = document.getElementById('num');
+		var oText = document.getElementById('text');
+		var oPara = document.getElementById('para');
+		var inp = document.getElementsByTagName('input');
+		var arrImg = [
+			'../images/di1zhang.jpg',
+			'../images/di2zhang.jpg',
+			'../images/di3zhang.jpg',
+			'../images/di4zhang.jpg'
+		];
+		var arrText = ['第一张','第二张','第三张','第四张'];
+		var onOff = true;	//定义一个开关来控制是选择循环切换还是顺序切换
+		var num = 0;
+		
+		inp[0].onmousedown = function (){
+			onOff = false;
+			oPara.innerHTML = '循环切换';
+		};
+		inp[1].onmousedown = function (){
+			onOff = true;
+			oPara.innerHTML = '顺序切换';
+		};
+		
+		imgTab();
+		function imgTab(){
+			oNum.innerHTML = num+1+'/'+arrImg.length;
+			oImg.src = arrImg[num];
+			oText.innerHTML = arrText[num];;
+		}
+		
+		//点击右箭头，图片文本切换至下一组
+		oNext.onmousedown = function (){
+			num++;
+			if(num<arrImg.length){
+				imgTab();
+			}else{
+				if(onOff){
+					alert('已经到最后一张了')
+					num = arrImg.length-1;
+				}else{
+					num = 0;
+					imgTab();
+				}
+			}
+		};
+		
+		//点击左箭头，图片文本切换至上一组
+		oPrev.onmousedown = function (){
+			num--;
+			if(num>=0){
+				imgTab();
+			}else{
+				if(onOff){
+					alert('已经到第一张了');
+					num = 0;
+				}else{
+					num = arrImg.length-1;
+					imgTab();
+				}
+			}
+		};
+		
+	
+	</script>
+	
+</body>
+</html>

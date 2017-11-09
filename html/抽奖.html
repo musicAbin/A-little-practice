@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title></title>
+        <style>
+        	#prize{margin: 90px auto;width: 330px;border:5px solid #f00;font-size:0;}
+        	#prize a,#prize strong{display:inline-block;width:100px;height:100px;line-height:100px;background: #ffc;margin:10px 10px 0 0;font-size:20px;text-align: center;}
+        	#prize a{text-decoration: none;color:#333;}
+        	#prize strong{font-size:24px;cursor: pointer;color:#f00;}
+        	#prize .active{background: #ff0;}
+        </style>
+    </head>
+    <body>
+    	<div id="prize">
+    		<a class="active" href="#"></a>
+    		<a href="#"></a>
+    		<a href="#"></a>
+    		<a href="#"></a>
+    		<strong>start</strong>
+    		<a href="#"></a>
+    		<a href="#"></a>
+    		<a href="#"></a>
+    		<a href="#"></a>
+    	</div>
+    	
+    </body>
+    <script type="text/javascript">
+        var oPrize = document.getElementById('prize');
+        var aA = oPrize.getElementsByTagName('a');
+        var oStrong = oPrize.getElementsByTagName('strong')[0];
+        var arr = ['法拉利','美女','贺贺','清清','超超','玲玲','斌仔','帅哥'];
+        var arrNum = [0,1,2,4,7,6,5,3];
+        var onOff = null;
+        var t = 10;
+        var n = 0; 
+        
+        for(var i=0;i<aA.length;i++){
+        	aA[i].innerHTML = arr[arrNum[i]];
+        }
+        
+        oStrong.onmousedown = function (){
+        	if(onOff){
+        		return ;
+        	}
+        	onOff = true;
+        	 
+        	t = 10;
+        	n = 0;
+
+			move();
+        };
+        
+        function move(){
+        	setTimeout(function(){
+        		n++;
+        		
+        		if(n == aA.length){
+	        		n = 0;
+	        	}
+	        	
+	        	for(var j=0;j<aA.length;j++){
+	        		aA[j].className = '';
+	        	}
+	        	
+	        	aA[arrNum[n]].className = 'active';
+	        	
+	        	t += 10;
+	        	
+	        	if(t<Math.round(Math.random()*200+100)){
+	        		move();
+	        	}else{
+	        		onOff = false;
+	        	}
+        	},t);
+        }
+        
+    </script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用递归实现字符串length方法</title>	
+	</head>
+	<body>
+		<script>
+		/*思路：
+		 * 	从字符串的第0位往后开始检查，如果这一位存在字符，就num自增
+		 */
+			var str = ' abcde ';
+			var num = 0;
+			
+			function len(str){
+				//从第0位往后判断，如果当前这位有字符，则为真
+				if(str[num]){
+					//num自增，方便下次判断下一位
+					num++;
+					//调用自身
+					len(str);
+				}
+				//返回num,刚好为字符串个数
+				return num;
+			}
+			
+			console.log(len(str),str.length);
+			
+		</script>
+	</body>
+</html>

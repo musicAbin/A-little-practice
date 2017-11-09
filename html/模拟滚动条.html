@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>拖拽碰撞检测</title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #wrapper{
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+
+        #main{
+            position: absolute;
+            left:0;
+            top:0;
+        }
+
+        #box1 {
+            position: absolute;
+            left: 600px;
+            top: 10px;
+            width: 30px;
+            height: 500px;
+            border: 1px solid #333;
+        }
+
+        #box2 {
+            position: absolute;
+            left: 0;
+            top: 30px;
+            width: 30px;
+            height: 30px;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+
+        #top{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height:30px;
+            background:#ccc;
+        }
+
+        #bottom{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height:30px;
+            background:#ccc;
+        }
+
+        span{
+            cursor: pointer;
+        }
+
+
+    </style>
+    <!--<script src="../scripts/tween.js"></script>-->
+    <!--<script src="../scripts/myLib.js"></script>-->
+</head>
+
+<body style="height: 2000px">
+
+    <div id="wrapper">
+        <div id="main">
+            开始开始开始开始开始开始<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br> 加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            加油<br>
+            结束结束结束结束结束结束<br>
+        </div>
+    </div>
+    <div id="box1">
+        <div id="box2">
+        </div>
+
+        <span id="top">▲</span>
+        <span id="bottom">▼</span>
+    </div>
+
+<script>
+    //获取元素
+    var doc = document,
+        oWrapper = doc.getElementById('wrapper'),
+        oMain = doc.getElementById('main'),
+        oBox1 = doc.getElementById('box1'),
+        oBox2 = doc.getElementById('box2'),
+        oTop = doc.getElementById('top'),
+        oBottom = doc.getElementById('bottom'),
+        //获取需要模拟的浏览器高度
+        oWrapperHeight = oWrapper.clientHeight,
+        //用来记录滚动条走的位移
+        dis = 0,
+        //滚动条每次移动的步数
+        step = 2;
+
+    //判断是否显示滚动条
+    isShow();
+
+    //通过内容高度判断是否显示滚动条
+    function isShow(){
+        if(oMain.offsetHeight < oWrapperHeight){
+            oBox1.style.display = 'none';
+        }else{
+            oBox1.style.display = 'block';
+
+            //计算滚动条高度
+            scrollHeight();
+
+            //得到滚动条能够上下滚动的最大距离，这句话必须写在得到滚动条的高度之后
+            var maxDis = oBox1.clientHeight - oBox2.clientHeight - 2 * oTop.offsetHeight;
+            //缩放比例
+            var scale = (oMain.offsetHeight - oWrapperHeight) / maxDis;
+
+            //鼠标控制滚动条
+            downUp(maxDis,scale);
+
+            //拖动滚动条
+            scrollBar(scale);
+        }
+    }
+
+    //计算滚动条高度
+    function scrollHeight(){
+        var scale = (oMain.offsetHeight - oWrapperHeight)/oWrapperHeight;
+        var H = 500 - 2*oTop.offsetWidth - 50 * scale;
+
+        //如果滚动条高度大于30，就让它的高度等于H
+        if(H > 30){
+            oBox2.style.height = H + 'px';
+        //否则就让它的高度等于30
+        }else{
+            oBox2.style.height = 30 + 'px';
+        }
+    }
+
+    //滚动条上的方向键控制滚动条
+    function downUp(maxDis,scale){
+        //鼠标按下滚动条的向下箭头
+        oBottom.onmousedown = function () {
+            var _this = this;
+            //定义一个变量flag，控制在一段时间之前是否发生onmousedown事件，flase代表没有发生onmousedown事件
+            var flag = false;
+
+            //鼠标按下向下箭头，滚动条向下滚动
+            fnBottom();
+
+            //延时一段时间后，再让滚动条top持续改变
+            setTimeout(function () {
+                //如果在一段时间之前，发生了onmousedown事件，那么返回
+                if(flag){
+                    return;
+                }
+                _this.timer = setInterval(function () {
+                    fnBottom();
+                },30);
+            },200);
+
+            //鼠标在滚动条的向下箭头上抬起，清除定时器
+            oBottom.onmouseout = oBottom.onmouseup = function () {
+                //当onmousedown事件发生时，把flag设置为true，表示可以运行上面timer定时器
+                flag = true;
+                clearInterval(this.timer);
+            };
+
+            //鼠标按下向下箭头，滚动条向下运动
+            function  fnBottom(){
+                var top = oBox2.offsetTop;
+                //如果滚动条未到达底部，增加top值
+                if(top < maxDis + oTop.offsetHeight) {
+                    //记录滚动条运动的距离
+                    dis += step;
+                    //先让滚动条top改变一次
+                    oBox2.style.top = top + step + 'px';
+                    //同时改变内容的top值
+                    oMain.style.top = -scale * dis + 'px';
+                }
+            }
+
+            return false;
+        };
+
+        //鼠标按下滚动条的向上箭头
+        oTop.onmousedown = function () {
+            var _this = this;
+            //定义一个变量flag，控制在一段时间之前是否发生onmousedown事件，flase代表没有发生onmousedown事件
+            var flag = false;
+
+            //滚动条向上移动
+            fnDown();
+
+            //延时一段时间后，再让滚动条top持续改变
+            setTimeout(function () {
+                //如果在这段时间之前发生onmousedown事件，那么返回
+                if(flag){
+                    return;
+                }
+
+                _this.timer = setInterval(function () {
+                    fnDown();
+                },30);
+            },200);
+
+            //鼠标在滚动条的向上箭头上抬起，清除定时器
+            oTop.onmouseout = oTop.onmouseup = function () {
+                flag = true;
+                clearInterval(this.timer);
+            }
+
+            function fnDown(){
+                var top = oBox2.offsetTop;
+                //如果滚动条未到达底部，增加top值
+                if(top > oTop.offsetHeight) {
+                    //记录滚动条运动的距离
+                    dis -= step;
+                    //改变滚动条top值
+                    oBox2.style.top = top - step + 'px';
+                    //同时改变内容的top值
+                    oMain.style.top = -scale*dis + 'px';
+                }
+            }
+
+            return false;
+        };
+    }
+
+    //拖动滚动条
+    function scrollBar(scale){
+        oBox2.onmousedown = function (e) {
+            var e = e || event;
+            var disY = e.clientY - this.offsetTop;
+            //滚动条滚动的最大top值
+            var maxHeight = oBox1.clientHeight - oBox2.offsetHeight - oTop.offsetHeight;
+
+            //鼠标移动滚动条
+            document.onmousemove = function (e) {
+                var e = e || event;
+                //获取box2相对于box1的top值
+                var T = e.clientY - disY;
+
+                //限制box2范围
+                if(T < oTop.offsetHeight){
+                    T = oTop.offsetHeight;
+                }else if(T > maxHeight){
+                    T = maxHeight;
+                }
+
+                //记录滚动条滚动位置
+                dis = T - oTop.offsetWidth;
+
+                //滚动条位置
+                oBox2.style.top = T + 'px';
+                //内容位置
+                oMain.style.top = -scale*(T-30) + 'px';
+            };
+
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            };
+
+            //阻止默认事件
+            return false;
+        };
+    }
+</script>
+</body>
+</html>

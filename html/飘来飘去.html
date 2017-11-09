@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			#list li{position:absolute;width:50px;height:50px;background: #f00;line-height: 50px;text-align: center;color:#fff;font-size: 20px;left:30px;}
+		</style>
+	</head>
+		
+	<body>
+		<ul id="list">
+		</ul>
+		
+		
+		<script src="../scripts/move.js"></script>
+		<script>
+			//获取元素
+			var oList = document.getElementById('list');
+			var aLi = oList.getElementsByTagName('li');
+			var str = '';	//定义一个字符串用来存放li
+			var len = 10;
+			var num = 0;
+			var timer = null;
+			var onOff = true;	//定义一个开关，true代表开始向下跑，false代表开始向上跑，用来控制当最后一个方块到达终点时，才能开始向相反方向跑
+			
+			//生成len个li元素，先把它放到str中
+			for(var i=0;i<len;i++){
+				str += '<li style="top:'+(10+60*i)+'px">'+i+'</li>';	
+			}
+			//把所有li放入到ul中
+			oList.innerHTML = str;
+			
+			//给document添加事件处理函数
+			document.onmousedown = function (){
+				//每次点击文档，清除上一个定时器
+				clearInterval(timer);
+				//如果onOff为真，所有方块开始向右跑
+				if(onOff){
+					timer = setInterval(function(){
+						//方块每隔30ms跑20px，跑到500px地方
+						doMove(aLi[num],'left',20,1000,30,function(){
+							//如果最后一个li到达目的地，则把onOff值设置为false，再次点击document，所有li开始向左跑
+							if(getStyle(aLi[len-1],'left')  == 1000+'px'){
+								onOff = false;
+							}
+						});
+						num++;
+						if(num == len){
+							clearInterval(timer);
+							num = len-1;
+						}
+					},150);
+				//如果onOff为假，所有方块开始向上跑
+				}else{
+					timer = setInterval(function(){
+						//方块每隔30ms跑20px，跑到30px地方
+						doMove(aLi[num],'left',20,30,30,function(){
+							//如果最后一个li到达目的地，则把onOff值设置为ture，再次点击document，所有li开始向右跑
+							if(getStyle(aLi[0],'left') == 30+'px'){
+								onOff = true;
+							}
+						});
+						num--;
+						if(num == -1){
+							clearInterval(timer);
+							num = 0;
+						}
+					},150);
+				}
+			};
+			
+		</script>
+	</body>
+</html>

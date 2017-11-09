@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title>表情小游戏</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+        <style>
+        	body{background: #f0f0f0;}
+			#game{position:absolute;left:200px;width: 800px;}
+			#game h2{text-align: center;font-size:30px;padding:20px 0;}
+			#game p{font-size:16px;padding:10px 0;}
+			#start{padding:5px 10px;height: 30px; font-size:14px;}
+			#canvas{position:relative;width: 100%;height: 400px;background: #fff;margin-top:20px;border:1px solid #333;}
+			#canvas img{position: absolute;top:-30px;left:0;}
+			#score{position: absolute;left:-142px;top:-1px;width: 140px;font-size:14px;padding:10px 0;background: #ffc;border:1px solid #333;}
+			#score p{padding:0;line-height: 30px;text-align: left;padding-left:20px;}
+        </style>
+    </head>
+    <body>
+    	<div id="game">
+    		<h2>你的鼠标有多快？</h>
+    		<p>游戏说明：点击“开始游戏”，随机掉下QQ表情，点中它，千万别让它掉下去！！</p>
+    		<input id="start" type="button" value="开始游戏" />
+    		<div id="canvas">
+    			<img src="../images/fade.png" alt="" />
+    			<div id="score">
+    				<p>得分：<span>0</span>分</p>
+    				<p>失分：<span>0</span>分</p>
+    			</div>
+    		</div>
+    	</div>
+    	
+    	
+    	
+    	<script src="../scripts/tween.js"></script>
+    	<script src="../scripts/mTween3.js"></script>
+    	<script>
+    		var oGame = document.getElementById('game');
+    		var oStart = document.getElementById('start');
+    		var oCanvas = document.getElementById('canvas');
+    		var oScore = document.getElementById('score');
+    		var oImg = document.getElementsByTagName('img')[0];
+    		var aSpan = oScore.getElementsByTagName('span');
+    		var timer = null;
+    		var imgArr = ['../images/cry.png','../images/dabing.jpg','../images/deyi.jpg','../images/hug.png','../images/kiss.png','../images/laugh.png','../images/fade.png'];
+    		var score = 0;
+			var lose = 0;
+			
+    		//点击开始游戏按钮
+    		oStart.onmousedown = function (){
+    			//当游戏开始时，按钮文本显示游戏正在进行中
+    			this.value = '游戏正在进行中...';
+    			//当游戏开始时，把开始游戏按钮设置为禁用
+    			this.disabled = true;
+    			
+				run();
+    		};
+    		
+
+			function run(){
+				//计算oGame对象的width值
+    			var W = parseInt(getStyle(oGame,'width'));
+    			//计算oGame对象的left值
+    			var L = parseInt(getStyle(oGame,'left'))
+				//随机产生L到W-30之间的一个值，减去30是为了不让qq表情超出游戏区域
+				var randomLeft = Math.round(Math.random()*(W-30-L)+L); 
+				//随机产生一个qq表情
+				oImg.src = imgArr[Math.floor(imgArr.length*Math.random())];
+				//把qq表情的随机产生的randomLeft值赋给img的left
+				oImg.style.left = randomLeft+'px';
+				//每次调用run函数时，让qq表情的top值回到-30px位置
+				oImg.style.top = -30+'px';
+				oImg.style.display = 'block';
+				
+				timer = setTimeout(function(){
+    				mTween(oImg,{
+	    				top:400
+	    			},5000,'linear',function(){
+	    				run();
+	    			});
+    			},100);
+			}
+    		
+    		oImg.onmousedown = function (){
+    			var _this = this;
+    			
+    			shake(_this,'left',function(){
+    				_this.style.display = 'none';
+    				_this.style.top = -30+'px'; 
+    				run();
+    			});
+    			
+				lose++;
+				console.log(aSpan[0].innerHTML);
+    			aSpan[0].innerHTML = lose;
+    		};
+    		
+    		
+    		
+    	</script>
+    </body>
+</html>

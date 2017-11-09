@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			div{width:100px;height: 100px;float: left;font-size:30px;line-height:100px;text-align: center;color:#fff;margin:10px;}
+			#male{background: #00f;}
+			#female{background: #f00;}
+			.border{border: 2px solid #333;}
+			
+		</style>
+	</head>
+		
+	<body>
+		<div id="male" class="border">男</div>
+		<div id="female">女</div>
+		
+		<script>
+		/*需求：点击女，选中女，清除男；点击男，选中男，清除女
+		 * 
+		 */
+		
+		//获取元素
+		var oSex = document.querySelectorAll('div');
+		
+		//给元素添加点击处理事件
+		for(var i=0;i<oSex.length;i++){
+			oSex[i].onmousedown = function (){
+				for(var i=0;i<oSex.length;i++){
+					oSex[i].className = '';
+				}
+                                                                                                                                                                                                                                                                                                                                                                                   				this.className = 'border';
+			};
+		}
+		
+		
+			
+		</script>
+	</body>
+</html>

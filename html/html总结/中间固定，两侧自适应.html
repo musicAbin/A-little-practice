@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>中间固定，两边自适应</title>
+    <style>
+    	/*方法一*/
+    	/*body{
+    		margin: 0;
+    	}
+    	div{
+    		height: 100%;
+    	}
+    	#mid {
+		    z-index:2;
+		    background-color:#eee;
+		    width:500px;
+		    margin-left:-250px;
+		    position:absolute;
+		    top:0;
+		    left:50%;    
+		}
+		#left,#right {
+		    z-index:1;
+		    position:absolute;
+		    top:0;
+		    width:50%;
+		}
+		#left {
+		    left:0;
+		}
+		#left .container {
+		    margin-right:250px;
+		    background-color:#bbb;
+		}
+		#right {
+		    right:0;     
+		}
+		#right .container {
+		    margin-left:250px;
+		    background-color:#bbb;
+		}*/
+		
+		/*方法二*/
+		body{
+			margin:0;
+		}
+		html,body{
+			height: 100%;
+		}
+		div{
+			height: 100%;
+		}
+		#mid{
+			float:left;
+			width:300px;
+			background: #f00;
+		}
+		#left,#right{
+			float:left;
+			width:50%;
+		}
+		#left{
+			margin-right:-150px;
+		}
+		#left .left_main{
+			margin-right:150px;
+			background: #ff0;
+		}
+		#right{
+			margin-left:-150px;
+		}
+		#right .right_main{
+			margin-left:150px;
+			background: #00f;
+		}
+    	
+    </style>
+    
+    
+</head>
+<body>
+	
+	<!--<div id="mid"></div>
+	
+	<div id="left">
+		<div class="container"></div>
+	</div>
+
+	<div id="right">
+		<div class="container"></div>
+	</div>-->
+	
+
+	<div id="left">
+		<div class="left_main">左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值左值</div>
+	</div>
+	<div id="mid">中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间中间</div>
+	<div id="right">
+		<div class="right_main">右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧右侧</div>
+	</div>
+
+	
+	<script>
+		
+		
+	
+		
+	</script>
+</body>
+</html>

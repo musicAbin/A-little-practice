@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #box{
+            position: absolute;
+            left:100px;
+            top: 100px;
+            width: 100px;
+            height: 100px;
+            background: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+<script>
+    var oBox = document.getElementById('box');
+    var timer = null;
+    var key = [];
+    var speed = 10;
+
+    //键盘按下
+    document.onkeydown = function (e) {
+        var e = e || event;
+        //如果按下那个键，就让那个键的值为真
+        key[e.which] = true;
+    };
+    //键盘抬起
+    document.onkeyup = function (e) {
+        var e = e || event;
+        //如果抬起那个键，就让那个键的值为假
+        key[e.which] = false;
+    };
+
+    //通过左上右下四个方向键来控制方块向不同的方向移动
+    timer = setInterval(function () {
+        if(key[37]){
+            oBox.style.left = oBox.offsetLeft - speed + 'px';
+        }
+        if(key[38]){
+            oBox.style.top = oBox.offsetTop - speed + 'px';
+        }
+        if(key[39]){
+            oBox.style.left = oBox.offsetLeft + speed + 'px';
+        }
+        if(key[40]){
+            oBox.style.top = oBox.offsetTop + speed + 'px';
+        }
+
+    },30);
+
+</script>
+</body>
+</html>

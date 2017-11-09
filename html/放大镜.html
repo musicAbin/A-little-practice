@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+    <style>
+        #box{
+            position: relative;
+            margin: 100px 0 0 100px;
+            width: 350px;
+            height: 350px;
+            background:url(../images/small.jpg) no-repeat;
+            border: 1px solid #f00;
+        }
+        #mask{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 150px;
+            background: #ffff00;
+            opacity:0.4;
+            filter: alpha(Opacity=40);
+            display: none;
+        }
+        #big{
+            overflow: hidden;
+            position: absolute;
+            top:100px;
+            left:500px;
+            width: 350px;
+            height: 350px;
+            border:1px solid #f00;
+            display: none;
+        }
+        #big img{
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+<body style="height: 2000px">
+    <div id="box">
+        <div id="mask"></div>
+    </div>
+    <div id="big">
+        <img src="../images/big.jpg" alt="">
+    </div>
+<script>
+        //获取元素
+        var doc = document,
+            oBox = doc.getElementById('box'),
+            oMask = doc.getElementById('mask'),
+            oBig = doc.getElementById('big'),
+            oImg = doc.getElementsByTagName('img')[0];
+
+        oBox.onmouseenter = function () {
+            //鼠标移入box，显示mask
+            oMask.style.display = 'block';
+            //鼠标移入box，显示big
+            oBig.style.display = 'block';
+        };
+
+        oBox.onmouseleave = function () {
+            oMask.style.display = 'none';
+            oBig.style.display = 'none';
+        };
+
+        oBox.onmousemove = function(e){
+            var e = e || event;
+            //获取box的盒模型信息
+            var box = oBox.getBoundingClientRect();
+            var L = e.clientX - box.left- oMask.offsetWidth / 2;
+            var T = e.clientY - box.top - oMask.offsetHeight / 2;
+            var n = 0;
+
+            //范围限制
+            //水平方向
+            if(L < 0){
+                L = 0;
+            }else if(L > this.clientWidth - oMask.offsetWidth){
+                L = this.clientWidth - oMask.offsetWidth;
+            }
+            //垂直方向
+            if(T < 0){
+                T = 0;
+            }else if(T > this.clientWidth - oMask.offsetWidth){
+                T = this.clientWidth - oMask.offsetWidth;
+            }
+
+            //遮罩层位置
+            oMask.style.left = L + 'px';
+            oMask.style.top = T + 'px';
+
+            //算出比例关系
+            n = (oImg.offsetWidth-oBig.clientWidth) / (this.clientWidth - oMask.offsetWidth);
+
+            //图片位置
+            oImg.style.left = -L*n+'px';
+            oImg.style.top = -T*n+'px';
+        };
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title>获取历史上今天是星期几</title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+        <style>
+			
+        </style>
+    </head>
+    <body>
+    	<select id="year">
+    	</select>
+    	年
+    	<select id="month">
+    	</select>
+    	月
+    	<select id="date">
+    	</select>
+    	日
+    	星期
+    	<span id="week"></span>
+    	<!--<select id="month">
+    	</select>-->
+    	<!--<script src="../scripts/tween.js"></script>
+    	<script src="../scripts/mTween3.js"></script>-->
+    	<script>
+    	
+    		var oYear = document.getElementById('year');
+    		var oMonth = document.getElementById('month');
+    		var oDate = document.getElementById('date');
+    		var oWeek = document.getElementById('week');
+			var now = new Date();
+			var myYear = now.getFullYear();
+			var myMonth = now.getMonth();
+			var myDate = now.getDate();
+			var myDay = now.getDay();
+			var weekStr = '日一二三四五六';
+			
+			
+			time(oYear,2030,1970,myYear);
+			time(oMonth,12,0,myMonth+1);
+			time(oDate,31,0,myDate);
+			//把星期字符串分割成数组，然后获取今天星期几
+			week();
+			function week(){
+				oWeek.innerHTML = weekStr.split('')[now.getDay()];
+			}
+
+			
+			oYear.onchange = function (){
+				now.setFullYear(this.value);
+				week();
+			};
+			
+			oMonth.onchange = function (){
+				now.setMonth(this.value-1);
+				week();
+			};
+			
+			oDate.onchange = function (){
+				now.setDate(this.value);
+				week();
+			};
+			
+			
+			
+			
+			function time(obj,end,start,defaultValue){
+				var str = ''; 
+				
+				for(var i=end;i>start;i--){
+					if(i == defaultValue){
+						str += '<option selected>'+i+'</option>';
+					}else{
+						str += '<option>'+i+'</option>';
+					}
+				}
+				
+				obj.innerHTML = str;
+			}
+			
+    		
+    		
+    		 
+
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    	</script>
+    </body>
+</html>

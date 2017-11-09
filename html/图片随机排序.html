@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+    <head>
+    	<meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../css/public.css"/>
+        <style>
+        	#wrapper{width:1200px;margin:90px auto;}
+        	#btn{text-align: center;}
+        	#btn input{width: 80px;height:30px;line-height: 30px;background: #099;}
+        	#imgList{}
+        	#imgList li{float: left;padding:10px;}
+        	#imgList img{width: 280px;height: 180px;}
+        	#imgList h3{background: #ccc;line-height: 30px;text-align: center;}
+        </style>
+        
+    </head>
+    <body>
+    	<div id="wrapper">
+    		<div id="btn">
+    			<input type="button" name="" id="" value="从大到小" />
+    			<input type="button" name="" id="" value="打乱顺序" />
+    		</div>
+    		<ul id="imgList">
+    			<li>
+    				<img src="../images/random1.jpg" alt="" />
+    				<h3>1-图片1</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random2.jpg" alt="" />
+    				<h3>2-图片2</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random3.jpg" alt="" />
+    				<h3>3-图片3</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random4.jpg" alt="" />
+    				<h3>4-图片4</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random5.jpg" alt="" />
+    				<h3>5-图片5</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random6.jpg" alt="" />
+    				<h3>6-图片6</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random7.jpg" alt="" />
+    				<h3>7-图片7</h3>
+    			</li>
+    			<li>
+    				<img src="../images/random8.jpg" alt="" />
+    				<h3>8-图片8</h3>
+    			</li>
+    		</ul>
+    	</div>
+    	
+    	
+    	<script>
+    		//获取元素
+    		var aInp = document.getElementsByTagName('input');
+    		var aH3 = document.getElementsByTagName('h3');
+    		var aImg = document.getElementsByTagName('img');
+    		var arrText = [];
+    		var onOff = false;	//设置一个开关来控制从大到小按钮，每次只允许它点击一次，再点击无效
+    		
+    		//把h3标题的内容放入数组中
+    		for(var i=0;i<aH3.length;i++){
+    			arrText.push(aH3[i].innerHTML);
+    		}
+    		
+    		//给打乱顺序按钮添加事件处理函数
+    		aInp[1].onmousedown = function (){
+    			//每次点击打乱顺序按钮，把onOff设置为false
+    			onOff = false;
+    			
+    			//随机打乱数组中的内容
+    			arrText.sort(function(a,b){
+    				var a = parseInt(a);
+    				var b = parseInt(b);
+    				
+    				return Math.random() - 0.5;
+    			});
+    			
+    			//循环遍历数组，给img和h3添加内容
+    			for(var i=0;i<arrText.length;i++){
+    				aImg[i].src = "../images/random"+parseInt(arrText[i])+".jpg";
+    				aH3[i].innerHTML = arrText[i];
+    			}
+    		};
+    		
+    		//给从大到小按钮添加事件处理函数
+    		aInp[0].onmousedown = function (){
+    			
+    			//如果onOff为true，那么返回，什么也不做
+    			if(onOff){
+    				alert('恭喜你，已经排序完毕!');
+    				return ;
+    			}
+    			
+    			onOff = true;
+    			
+    			//将数组中的内容从大到小排列
+    			arrText.sort(function(a,b){
+    				var a = parseInt(a);
+    				var b = parseInt(b);
+    				
+    				return b-a;
+    			});
+    			console.log(arrText);
+    			//循环遍历数组，给img和h3添加内容
+    			for(var i=0;i<arrText.length;i++){
+    				aImg[i].src = "../images/random"+parseInt(arrText[i])+".jpg";
+    				aH3[i].innerHTML = arrText[i];
+    			}
+    		}
+    		
+    	</script>
+    </body>
+</html>

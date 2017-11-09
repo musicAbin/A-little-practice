@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>新建文件夹</title>
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<style>
+			
+			
+		</style>
+	</head>
+		
+	<body>
+        <div>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+		<script>
+			console.log('html');
+			
+			tree(document.documentElement,1);
+			
+			function tree(oParent,flag){
+				var childs = oParent.children;
+				var space = '';
+				
+				for(var i=0;i<flag;i++){
+					space += '  ';					
+				}
+				
+				for(var i=0;i<childs.length;i++){
+					console.log(space+childs[i].tagName.toLocaleLowerCase());
+					tree(childs[i],flag+1);
+				}
+			}
+			
+		</script>
+	</body>
+</html>
